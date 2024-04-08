@@ -1,0 +1,19 @@
+﻿<Window x:Class="WpfApp4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+        mc:Ignorable="d"
+        Title="FUHR Poland" Height="450" Width="800" ResizeMode="CanMinimize" WindowStyle="None" MouseLeftButtonDown =" Window_MouseLeftButtonDown">
+    <Grid Background="Transparent">
+        <Frame Name="MainFrame" Background ="DarkGray" NavigationUIVisibility="Hidden"/>
+        <Rectangle RadiusX="10" RadiusY="10" Margin="40,33,624,366">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Images/FUHR_Logo.jpg" Stretch="UniformToFill"/>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Ellipse Name="closebtn" Fill="red" HorizontalAlignment="Left" Height="23" Margin="767,10,0,0" VerticalAlignment="Top" Width="23" MouseLeftButtonDown="closeApp" ToolTip="Close" Cursor="" MouseEnter="closebtn_MouseEnter" MouseLeave="closebtn_MouseLeave"/>
+
+    </Grid>
+</Window>
