@@ -24,19 +24,14 @@ namespace WpfApp4.Pages
     {
         public string choosenHeight;
         public string choosenSeries;
+        public string choosenType;
+        public string choosenFunction;
         private MySqlConnection connection;
         private MySqlCommand cmd;
         public Page3()
         {
             InitializeComponent();
             
-        }
-        
-      
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new WelcomePage());
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,14 +41,16 @@ namespace WpfApp4.Pages
                 choosenHeight = ((ComboBoxItem)heightcombobox.SelectedItem).Content.ToString();
                 seriescombobox.IsEnabled = true;
                 seriescombobox.Items.Clear();
+                typecombobox.Items.Clear();
+                functioncombobox.Items.Clear();
                 PopulateLockSeriesComboBox();
             }
         }
 
         private void PopulateLockSeriesComboBox()
         {
-            
-            string connectionString = "server=localhost;port=3306;uid=root;pwd=root;database=dobory;";
+
+            string connectionString = (string)Application.Current.FindResource("MyConnectionString");
             string query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height";
 
             try
@@ -130,6 +127,114 @@ namespace WpfApp4.Pages
                 typecombobox.IsEnabled = true;
                 typecombobox.Items.Clear();
                 PopulateLockTypeComboBox(); // Call the new method
+            }
+        }
+        private void PopulateFunctionComboBox()
+        {
+            // Connection string
+            string connectionString = (string)Application.Current.FindResource("MyConnectionString");
+
+            // SQL query to fetch distinct functions based on selected height, series, and type
+            string query = "SELECT DISTINCT Lock_Function FROM choosenlocks " +
+                           "WHERE Lock_Height = @Height AND Lock_Series = @Series AND Lock_Type = @Type";
+
+            try
+            {
+                // Open connection
+                using (connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Prepare command
+                    using (cmd = new MySqlCommand(query, connection))
+                    {
+                        // Add parameters for selected height, series, and type
+                        cmd.Parameters.AddWithValue("@Height", choosenHeight);
+                        cmd.Parameters.AddWithValue("@Series", choosenSeries);
+                        cmd.Parameters.AddWithValue("@Type", choosenType);
+
+                        // Execute reader
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            // Clear existing items
+                            functioncombobox.Items.Clear();
+
+                            // Read each distinct function and add to functioncombobox
+                            while (reader.Read())
+                            {
+                                string lockFunction = reader.GetString("Lock_Function");
+                                functioncombobox.Items.Add(lockFunction);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void typecombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (typecombobox.SelectedItem != null)
+            {
+                choosenType = typecombobox.SelectedItem.ToString();
+                functioncombobox.IsEnabled = true;
+                functioncombobox.Items.Clear();
+                PopulateFunctionComboBox(); // Call the new method
+            }
+        }
+
+        private void functioncombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (functioncombobox.SelectedItem != null)
+            {
+                NextStepBtn.IsEnabled = true;
+                choosenFunction = functioncombobox.SelectedItem.ToString();
+
+            }
+            else
+            {
+                NextStepBtn.IsEnabled= false;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Connection string
+                string connectionString = (string)Application.Current.FindResource("MyConnectionString");
+
+                // SQL query to delete data from choosenlocks table
+                string deleteQuery = "DELETE FROM choosenlocks " +
+                                     "WHERE Lock_Height != @Height OR Lock_Series != @Series " +
+                                     "OR Lock_Type != @Type OR Lock_Function != @Function";
+
+                // Open connection
+                using (connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Prepare command for deletion
+                    using (cmd = new MySqlCommand(deleteQuery, connection))
+                    {
+                        // Add parameters for selected values
+                        cmd.Parameters.AddWithValue("@Height", choosenHeight);
+                        cmd.Parameters.AddWithValue("@Series", choosenSeries);
+                        cmd.Parameters.AddWithValue("@Type", choosenType);
+                        cmd.Parameters.AddWithValue("@Function", choosenFunction);
+
+                        // Execute deletion
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
+                NavigationService.Navigate(new Page4());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
     }

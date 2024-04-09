@@ -1,0 +1,37 @@
+﻿<Page x:Class="WpfApp4.Pages.Page4"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp4.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page2">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation From="0" To="1" Duration="0:0:0:1" Storyboard.TargetProperty="Opacity">
+
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="..\Images\background.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Button Content="Next Step" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="91"/>
+        <Label Content="Choose Side of Door" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
+        <ComboBox Name="typecombobox" HorizontalAlignment="Left" Margin="98,0,0,0" VerticalAlignment="Center" Width="141" SelectionChanged="typecombobox_SelectionChanged"/>
+        <Label Content="Type of strike plate:" HorizontalAlignment="Left" Margin="98,188,0,0" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="inside_outsidecombobox" Visibility="Visible" HorizontalAlignment="Left" Margin="98,314,0,0" VerticalAlignment="Top" Width="141" />
+        <Label Name ="insideoutsidelabel" Visibility="Visible" Content="Inside/Outside:" HorizontalAlignment="Left" Margin="98,288,0,0" VerticalAlignment="Top" Width="120" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="onepiececombobox" HorizontalAlignment="Left" Margin="98,264,0,0" VerticalAlignment="Top" Width="141" />
+        <Label Content="One Piece" HorizontalAlignment="Left" Margin="98,238,0,0" VerticalAlignment="Top" Width="141" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="sidecombobox" HorizontalAlignment="Left" Margin="328,0,0,0" VerticalAlignment="Center" Width="120"/>
+        <Label Content="Side:" HorizontalAlignment="Left" Margin="328,188,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+
+    </Grid>
+</Page>

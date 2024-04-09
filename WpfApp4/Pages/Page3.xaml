@@ -22,7 +22,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="..\Images\background.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Button Content="Next Step" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="91" Click="Button_Click"/>
+        <Button Name ="NextStepBtn" IsEnabled="False" Content="Next Step" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="91" Click="Button_Click"/>
         <Label Content="Choose Lock Height" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
         <Label Content="Lock Series and Type, Lock Side" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="570" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
         <ComboBox Name="heightcombobox" HorizontalAlignment="Left" Margin="98,204,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged">
@@ -33,8 +33,10 @@
         <Label Content="Height:" HorizontalAlignment="Left" Margin="98,178,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
         <ComboBox x:Name="seriescombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,254,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="seriescombobox_SelectionChanged" />
         <Label Content="Lock Series:" HorizontalAlignment="Left" Margin="98,228,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <ComboBox x:Name="typecombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,304,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="typecombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,304,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="typecombobox_SelectionChanged"/>
         <Label Content="Type:" HorizontalAlignment="Left" Margin="98,278,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="functioncombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,354,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="functioncombobox_SelectionChanged"/>
+        <Label Content="Function:" HorizontalAlignment="Left" Margin="98,328,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
 
     </Grid>
 </Page>

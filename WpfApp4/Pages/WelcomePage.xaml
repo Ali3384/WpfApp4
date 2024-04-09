@@ -27,5 +27,6 @@
         <Label Content="Welcome to" HorizontalAlignment="Left" Margin="40,126,0,0" VerticalAlignment="Top" Width="332" Height="62" FontFamily="Arial" FontSize="48" BorderBrush="Black" FontWeight="UltraBold" Foreground="White"/>
         <Label Content="configurator for" HorizontalAlignment="Left" Margin="40,188,0,0" VerticalAlignment="Top" Width="433" Height="67" FontFamily="Arial" FontSize="48" Foreground="White" BorderBrush="Black" FontWeight="UltraBold"/>
         <Label Content="FUHR lock systems." HorizontalAlignment="Left" Margin="40,255,0,0" VerticalAlignment="Top" Width="536" Height="62" FontFamily="Arial" FontSize="48" Foreground="White" BorderBrush="Black" FontWeight="UltraBold"/>
+        <Button x:Name="butsettings" Content="Settings" Margin="570,349,64,60" Click="butsettings_Click"/>
     </Grid>
 </Page>

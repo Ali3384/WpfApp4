@@ -27,8 +27,12 @@ namespace WpfApp4
 
         public MainWindow()
         {
+
             InitializeComponent();
+            
             MainFrame.Content = new WelcomePage();
+           
+            
         }
 
         
@@ -36,10 +40,10 @@ namespace WpfApp4
         {
             DragMove();
         }
-
+        
         private void closeApp(object sender, MouseButtonEventArgs e)
         {
-            string connectionString = "server=localhost;port=3306;uid=root;pwd=root;database=dobory;";
+            string connectionString = (string)Application.Current.FindResource("MyConnectionString");
             string tableName = "choosenlocks";
             string query = $"TRUNCATE TABLE {tableName}";
 
@@ -53,7 +57,7 @@ namespace WpfApp4
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error truncating table: " + ex.Message);
+
             }
             finally
             {
@@ -73,7 +77,47 @@ namespace WpfApp4
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error truncating table: " + ex.Message);
+                
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                    connection.Close();
+            }
+            string table3Name = "choosensystem";
+            string query3 = $"TRUNCATE TABLE {table3Name}";
+
+            MySqlConnection connection3 = new MySqlConnection(connectionString);
+            MySqlCommand command3 = new MySqlCommand(query3, connection3);
+
+            try
+            {
+                connection3.Open();
+                command3.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                    connection.Close();
+            }
+            string table4Name = "choosenmainstrikers";
+            string query4 = $"TRUNCATE TABLE {table4Name}";
+
+            MySqlConnection connection4 = new MySqlConnection(connectionString);
+            MySqlCommand command4 = new MySqlCommand(query4, connection4);
+
+            try
+            {
+                connection4.Open();
+                command4.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                
             }
             finally
             {

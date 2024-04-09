@@ -29,7 +29,7 @@ namespace WpfApp4.Pages
         private void PopulateComboBox()
         {
             
-            string connectionString = "server=localhost;port=3306;uid=root;pwd=root;database=dobory;"; 
+            string connectionString = (string)Application.Current.FindResource("MyConnectionString"); 
             string query = "SELECT System_Name FROM systems"; 
 
             try
@@ -50,7 +50,8 @@ namespace WpfApp4.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error to connect database" );
+                MessageBox.Show("Error to connect database application will be closed please try again or change settings.", "Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Shutdown();
             }
             finally
             {
@@ -59,7 +60,7 @@ namespace WpfApp4.Pages
             }
         }
 
-        private string connectionString = "server=localhost;port=3306;uid=root;pwd=root;database=dobory;";
+        string connectionString = (string)Application.Current.FindResource("MyConnectionString");
 
         public void GetPlateForStriker(string chosenSystem)
         {
@@ -84,6 +85,12 @@ namespace WpfApp4.Pages
                         using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                         {
                             insertCmd.Parameters.AddWithValue("@strikePlate", strikePlate);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                        string insertsystemQuery = "INSERT INTO choosensystem (Door_System) VALUES (@chosenSystem)";
+                        using (MySqlCommand insertCmd = new MySqlCommand(insertsystemQuery, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("@chosenSystem", chosenSystem);
                             insertCmd.ExecuteNonQuery();
                         }
                     }

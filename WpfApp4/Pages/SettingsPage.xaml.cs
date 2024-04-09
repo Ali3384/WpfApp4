@@ -1,5 +1,4 @@
-﻿using Mysqlx.Connection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,23 +16,23 @@ using System.Windows.Shapes;
 namespace WpfApp4.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для WelcomePage.xaml
+    /// Логика взаимодействия для SettingsPage.xaml
     /// </summary>
-    public partial class WelcomePage : Page
+    public partial class SettingsPage : Page
     {
-        public WelcomePage()
+        public SettingsPage()
         {
             InitializeComponent();
+
         }
 
-        private void but1_Click(object sender, RoutedEventArgs e)
+        private void fillTxtBox()
         {
-            NavigationService.Navigate(new Page2());
-        }
 
-        private void butsettings_Click(object sender, RoutedEventArgs e)
+        }
+        private void butsave_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new SettingsPage());
+            NavigationService.Navigate(new WelcomePage());
         }
     }
 }
