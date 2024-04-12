@@ -29,4 +29,5 @@
         <Label Content="FUHR lock systems." HorizontalAlignment="Left" Margin="40,255,0,0" VerticalAlignment="Top" Width="536" Height="62" FontFamily="Arial" FontSize="48" Foreground="White" BorderBrush="Black" FontWeight="UltraBold"/>
         <Button x:Name="butsettings" Content="Settings" Margin="570,349,64,60" Click="butsettings_Click"/>
     </Grid>
+    
 </Page>

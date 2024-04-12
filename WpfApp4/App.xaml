@@ -4,7 +4,4 @@
              xmlns:local="clr-namespace:WpfApp4"
              StartupUri="MainWindow.xaml"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <Application.Resources>
-        <sys:String x:Key="MyConnectionString">server=localhost;port=3306;uid=root;pwd=root;database=dobory;</sys:String>
-    </Application.Resources>
 </Application>

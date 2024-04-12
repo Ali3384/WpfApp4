@@ -1,7 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx.Connection;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,30 +14,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfApp4.Pages;
 
-namespace WpfApp4
+namespace WpfApp4.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для WelcomePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FinalPage : Page
     {
-        public MainWindow()
+        bool isconnection = false;
+        public FinalPage()
         {
             InitializeComponent();
-            
-            MainFrame.Content = new WelcomePage();
+                       
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void butsettings_Click(object sender, RoutedEventArgs e)
         {
-            DragMove();
-        }
-
-    
-        private void onClosed(object sender, EventArgs e)
-        {
+            NavigationService.Navigate(new WelcomePage());
             closing();
         }
         private void closing()
@@ -52,8 +46,6 @@ namespace WpfApp4
             TruncateTable(connectionString, "choosenonepiecestrikers");
             TruncateTable(connectionString, "choosencentralstrikers");
 
-            // Close the window
-            Close();
         }
 
         private void TruncateTable(string connectionString, string tableName)
@@ -80,24 +72,5 @@ namespace WpfApp4
             }
         }
 
-        private void closeApp(object sender, MouseButtonEventArgs e)
-        {
-            closing();
-            Close();
-        }
-
-        private void closebtn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            SolidColorBrush blackBrush = new SolidColorBrush();
-            blackBrush.Color = Colors.DarkRed;
-            closebtn.Fill = blackBrush;
-        }
-
-        private void closebtn_MouseLeave(object sender, MouseEventArgs e)
-        {
-            SolidColorBrush redBrush = new SolidColorBrush();
-            redBrush.Color = Colors.Red;
-            closebtn.Fill = redBrush;
-        }
     }
 }

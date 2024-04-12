@@ -34,7 +34,7 @@
         <Label Content="Database:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="107,236,0,0"/>
         <TextBox Name ="porttxt" HorizontalAlignment="Left" Margin="257,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
         <Label Content="Port:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="257,116,0,0"/>
-        <PasswordBox Name="passwordtxt" HorizontalAlignment="Left" Margin="257,207,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox Name="passwordtxt" HorizontalAlignment="Left" Margin="257,207,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
         <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="257,176,0,0"/>
     </Grid>
 </Page>

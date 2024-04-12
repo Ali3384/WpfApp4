@@ -29,7 +29,7 @@ namespace WpfApp4.Pages
         private void PopulateComboBox()
         {
             
-            string connectionString = (string)Application.Current.FindResource("MyConnectionString"); 
+            string connectionString = WpfApp4.Connection.ConnectionString; 
             string query = "SELECT System_Name FROM systems"; 
 
             try
@@ -60,7 +60,7 @@ namespace WpfApp4.Pages
             }
         }
 
-        string connectionString = (string)Application.Current.FindResource("MyConnectionString");
+        string connectionString = WpfApp4.Connection.ConnectionString;
 
         public void GetPlateForStriker(string chosenSystem)
         {

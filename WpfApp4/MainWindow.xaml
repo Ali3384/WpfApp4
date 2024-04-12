@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp4"
         mc:Ignorable="d"
-        Title="FUHR Poland" Height="450" Width="800" ResizeMode="CanMinimize" WindowStyle="None" MouseLeftButtonDown =" Window_MouseLeftButtonDown">
+        Title="FUHR Poland" Height="450" Width="800" ResizeMode="CanMinimize" WindowStyle="None" MouseLeftButtonDown =" Window_MouseLeftButtonDown" Closed="onClosed">
     <Grid Background="Transparent">
         <Frame Name="MainFrame" Background ="DarkGray" NavigationUIVisibility="Hidden"/>
         <Rectangle RadiusX="10" RadiusY="10" Margin="40,33,624,366">
@@ -16,4 +16,6 @@
         <Ellipse Name="closebtn" Fill="red" HorizontalAlignment="Left" Height="23" Margin="767,10,0,0" VerticalAlignment="Top" Width="23" MouseLeftButtonDown="closeApp" ToolTip="Close" Cursor="" MouseEnter="closebtn_MouseEnter" MouseLeave="closebtn_MouseLeave"/>
 
     </Grid>
+    
+
 </Window>

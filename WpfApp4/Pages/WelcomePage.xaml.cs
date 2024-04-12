@@ -1,4 +1,5 @@
-﻿using Mysqlx.Connection;
+﻿using MySql.Data.MySqlClient;
+using Mysqlx.Connection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,39 @@ namespace WpfApp4.Pages
     /// </summary>
     public partial class WelcomePage : Page
     {
+        bool isconnection = false;
         public WelcomePage()
         {
             InitializeComponent();
+                       
         }
 
+        private void checkConnection()
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(WpfApp4.Connection.ConnectionString))
+                {
+                    connection.Open();
+                    isconnection = true;
+                }
+            }
+            catch { 
+                isconnection = false;
+            } 
+        }
         private void but1_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page2());
+            checkConnection();
+            if (isconnection)
+            {
+                NavigationService.Navigate(new Page2());
+            }
+            else
+            {
+                MessageBox.Show("Error while connecting to Database, please check settings","Error",MessageBoxButton.OK, MessageBoxImage.Error);
+                NavigationService.Navigate(new SettingsPage());
+            }
         }
 
         private void butsettings_Click(object sender, RoutedEventArgs e)

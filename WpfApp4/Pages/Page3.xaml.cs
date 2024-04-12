@@ -50,7 +50,7 @@ namespace WpfApp4.Pages
         private void PopulateLockSeriesComboBox()
         {
 
-            string connectionString = (string)Application.Current.FindResource("MyConnectionString");
+            string connectionString = WpfApp4.Connection.ConnectionString;
             string query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height";
 
             try
@@ -83,7 +83,7 @@ namespace WpfApp4.Pages
 
         private void PopulateLockTypeComboBox()
         {
-            string connectionString = "server=localhost;port=3306;uid=root;pwd=root;database=dobory;";
+            string connectionString = WpfApp4.Connection.ConnectionString;
             string query = "SELECT DISTINCT Lock_Type FROM choosenlocks WHERE Lock_Series = @Series";
 
             try
@@ -125,6 +125,7 @@ namespace WpfApp4.Pages
             {
                 choosenSeries = seriescombobox.SelectedItem.ToString();
                 typecombobox.IsEnabled = true;
+                functioncombobox.Items.Clear();
                 typecombobox.Items.Clear();
                 PopulateLockTypeComboBox(); // Call the new method
             }
@@ -132,7 +133,7 @@ namespace WpfApp4.Pages
         private void PopulateFunctionComboBox()
         {
             // Connection string
-            string connectionString = (string)Application.Current.FindResource("MyConnectionString");
+            string connectionString = WpfApp4.Connection.ConnectionString;
 
             // SQL query to fetch distinct functions based on selected height, series, and type
             string query = "SELECT DISTINCT Lock_Function FROM choosenlocks " +
@@ -205,7 +206,7 @@ namespace WpfApp4.Pages
             try
             {
                 // Connection string
-                string connectionString = (string)Application.Current.FindResource("MyConnectionString");
+                string connectionString = WpfApp4.Connection.ConnectionString;
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosenlocks " +
