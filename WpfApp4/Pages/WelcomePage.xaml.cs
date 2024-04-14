@@ -2,6 +2,7 @@
 using Mysqlx.Connection;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,13 +34,14 @@ namespace WpfApp4.Pages
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(WpfApp4.Connection.ConnectionString))
+                using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.connection))
                 {
                     connection.Open();
                     isconnection = true;
                 }
             }
-            catch { 
+            catch {
+            
                 isconnection = false;
             } 
         }

@@ -26,7 +26,6 @@ namespace WpfApp4
         public MainWindow()
         {
             InitializeComponent();
-            
             MainFrame.Content = new WelcomePage();
         }
 
@@ -42,7 +41,7 @@ namespace WpfApp4
         }
         private void closing()
         {
-            string connectionString = WpfApp4.Connection.ConnectionString;
+            string connectionString = Properties.Settings.Default.connection;
 
             // Truncate tables
             TruncateTable(connectionString, "choosenlocks");
@@ -51,9 +50,9 @@ namespace WpfApp4
             TruncateTable(connectionString, "choosenmainstrikers");
             TruncateTable(connectionString, "choosenonepiecestrikers");
             TruncateTable(connectionString, "choosencentralstrikers");
-
+            TruncateTable(connectionString, "finaltable");
+            TruncateTable(connectionString, "isonepiece");
             // Close the window
-            Close();
         }
 
         private void TruncateTable(string connectionString, string tableName)
@@ -71,6 +70,8 @@ namespace WpfApp4
                 }
                 catch (Exception ex)
                 {
+                    
+                    Close();
                 }
                 finally
                 {

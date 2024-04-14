@@ -16,16 +16,20 @@ namespace WpfApp4.Pages
         private MySqlConnection connection;
         private MySqlCommand cmd;
         string strikePlate;
-        string choosenSystem;
+
+        public string choosenSystem { get; set;}
         string isAsymmetric;
         string choosentype;
         string typeofLock;
         string heightOfLock;
         int check;
-        string choosenonepiece;
-        string choosenside;
+        public string choosenonepiece { get; set; }
+        public string str { get; set; }
+        public string choosenside { get; set; }
+        
         public Page4()
         {
+           
             
             InitializeComponent();
             
@@ -39,11 +43,12 @@ namespace WpfApp4.Pages
             InsertIntoChoosenOnePieceStrikers();
             getIsOnePiece();
             FillOnePieceComboBox();
+            
         }
 
 
 
-        string connectionString = WpfApp4.Connection.ConnectionString;
+        string connectionString = Properties.Settings.Default.connection;
 
         public void GetPlateForStriker()
         {
@@ -232,7 +237,6 @@ namespace WpfApp4.Pages
                     connection.Close();
                 }
             }
-            MessageBox.Show(isAsymmetric);
             if (isAsymmetric == "No")
             {
                 insideoutsidelabel.Visibility = Visibility.Hidden;
@@ -286,7 +290,6 @@ namespace WpfApp4.Pages
                     insertCmd.Parameters.AddWithValue("@isAsymmetric", isAsymmetric);
                     insertCmd.Parameters.AddWithValue("@typeofLock", "%" + typeofLock + "%");
                     int rowsAffected = insertCmd.ExecuteNonQuery();
-                    MessageBox.Show(rowsAffected + " rows inserted into choosenmainstrikers table.");
                 }
             }
             catch (Exception ex)
@@ -319,7 +322,6 @@ namespace WpfApp4.Pages
                     insertCmd.Parameters.AddWithValue("@strikePlate", strikePlate);
                     insertCmd.Parameters.AddWithValue("@isAsymmetric", isAsymmetric);
                     int rowsAffected = insertCmd.ExecuteNonQuery();
-                    MessageBox.Show(rowsAffected + " rows inserted into choosencentralstrikers table.");
                 }
             }
             catch (Exception ex)
@@ -354,7 +356,6 @@ namespace WpfApp4.Pages
                     insertCmd.Parameters.AddWithValue("@heightofLock", "%" + heightOfLock + "%");
                     insertCmd.Parameters.AddWithValue("@typeofLock", "%" + typeofLock + "%");
                     int rowsAffected = insertCmd.ExecuteNonQuery();
-                    MessageBox.Show(rowsAffected + " rows inserted into choosenonepiecestrikers table.");
                 }
             }
             catch (Exception ex)
@@ -418,7 +419,7 @@ namespace WpfApp4.Pages
             try
             {
                 // Connection string
-                string connectionString = WpfApp4.Connection.ConnectionString;
+                string connectionString = Properties.Settings.Default.connection;
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosenonepiecestrikers " +
@@ -448,7 +449,7 @@ namespace WpfApp4.Pages
             try
             {
                 // Connection string
-                string connectionString = WpfApp4.Connection.ConnectionString;
+                string connectionString = Properties.Settings.Default.connection;
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosencentralstrikers " +
@@ -478,8 +479,8 @@ namespace WpfApp4.Pages
         {
             try
             {
-                // Connection string
-                string connectionString = WpfApp4.Connection.ConnectionString;
+                // Connection string    
+                string connectionString = Properties.Settings.Default.connection;
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosenmainstrikers " +
@@ -571,18 +572,45 @@ namespace WpfApp4.Pages
                 onepiececombobox.Items.Add("Single Strikers");
             }
         }
+        private void setOnePiece()
+        {
+            
+
+                MySqlConnection connection = null;
+                try
+                {
+                    connection = new MySqlConnection(connectionString);
+                    connection.Open();
+
+                string insertQuery = "INSERT INTO isonepiece (Result) VALUES (@result)";
+                    using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                    {
+                        insertCmd.Parameters.AddWithValue("@result", choosenonepiece);
+
+                        insertCmd.ExecuteNonQuery();
+                    }
+                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while inserting data into isonepiece table: " + ex.Message);
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(strikePlate + " " + choosenSystem + " " + choosentype + " " + isAsymmetric + " " + heightOfLock);
-            if(choosenonepiece == "Single Strikers")
-            {
+                setOnePiece();
                 mainstrikeget();
-                centralstrikeget();
-            }
-            else
-            {
                 onepieceget();
-            }
+                centralstrikeget();
+            str = choosenonepiece;
             NavigationService.Navigate(new FinalPage());
         }
 
@@ -591,10 +619,11 @@ namespace WpfApp4.Pages
 
         }
 
-        private void onepiececombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void onepiececombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                choosenonepiece = onepiececombobox.SelectedItem.ToString();
-                typecombobox.Items.Clear();
+            choosenonepiece = onepiececombobox.SelectedItem.ToString();
+            
+            typecombobox.Items.Clear();
                 FillTypeComboBox();
         }
 

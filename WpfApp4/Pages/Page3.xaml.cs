@@ -50,7 +50,7 @@ namespace WpfApp4.Pages
         private void PopulateLockSeriesComboBox()
         {
 
-            string connectionString = WpfApp4.Connection.ConnectionString;
+            string connectionString = Properties.Settings.Default.connection;
             string query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height";
 
             try
@@ -83,7 +83,7 @@ namespace WpfApp4.Pages
 
         private void PopulateLockTypeComboBox()
         {
-            string connectionString = WpfApp4.Connection.ConnectionString;
+            string connectionString = Properties.Settings.Default.connection;
             string query = "SELECT DISTINCT Lock_Type FROM choosenlocks WHERE Lock_Series = @Series";
 
             try
@@ -133,7 +133,7 @@ namespace WpfApp4.Pages
         private void PopulateFunctionComboBox()
         {
             // Connection string
-            string connectionString = WpfApp4.Connection.ConnectionString;
+            string connectionString = Properties.Settings.Default.connection;
 
             // SQL query to fetch distinct functions based on selected height, series, and type
             string query = "SELECT DISTINCT Lock_Function FROM choosenlocks " +
@@ -203,10 +203,12 @@ namespace WpfApp4.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+
             try
             {
                 // Connection string
-                string connectionString = WpfApp4.Connection.ConnectionString;
+                string connectionString = Properties.Settings.Default.connection;
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosenlocks " +

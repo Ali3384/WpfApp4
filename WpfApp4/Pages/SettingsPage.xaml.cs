@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,14 +60,19 @@ namespace WpfApp4.Pages
             connectionStringBuilder.Append("database=").Append(databasetxt.Text).Append(";");
 
             newconnection = connectionStringBuilder.ToString();
+            Properties.Settings.Default.connection = newconnection;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Upgrade();
 
-            // Store the connection string in resources
-          //WpfApp4.Connection.ConnectionString.ToString() = newconnection;
+
         }
+
+        
+
         private void GetConnectionData()
         {
-            string oldconnection = (string)Application.Current.FindResource("MyConnectionString");
-            
+            string oldconnection = Properties.Settings.Default.connection;
+
             // Split the connection string by semicolons to get individual components
             string[] parts = oldconnection.Split(';');
 
