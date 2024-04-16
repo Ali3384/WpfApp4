@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
 [assembly: AssemblyProduct("WpfApp4")]
-[assembly: AssemblyCopyright("Copyright © HP 2024")]
+[assembly: AssemblyCopyright("Copyright © FUHR 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

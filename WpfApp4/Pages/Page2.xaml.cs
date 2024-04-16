@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,11 +14,12 @@ namespace WpfApp4.Pages
     /// </summary>
     public partial class Page2 : Page
     {
+        public string plateforLock;
         private MySqlConnection connection;
         private MySqlCommand cmd;
         string choosenSystem = "";
         string choosenleaf = "";
-        
+        private List<string> systems;
         public Page2()
         {
             InitializeComponent();
@@ -30,8 +32,8 @@ namespace WpfApp4.Pages
         {
             
             string connectionString = Properties.Settings.Default.connection; 
-            string query = "SELECT System_Name FROM systems"; 
-
+            string query = "SELECT System_Name FROM systems";
+            
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -42,8 +44,10 @@ namespace WpfApp4.Pages
 
                 while (reader.Read())
                 {
+                    
                     string systemName = reader.GetString("System_Name");
-                    systemscombobox.Items.Add(systemName); 
+                    systemscombobox.Items.Add(systemName);
+                    
                 }
 
                 reader.Close();
@@ -127,7 +131,7 @@ namespace WpfApp4.Pages
                 {
                     systemCmd.Parameters.AddWithValue("@chosenSystem", chosenSystem);
                     string lockPlate = systemCmd.ExecuteScalar()?.ToString();
-
+                    plateforLock = lockPlate;
                     if (!string.IsNullOrEmpty(lockPlate))
                     {
                         // Retrieve locks based on Lock_Plate
@@ -166,7 +170,7 @@ namespace WpfApp4.Pages
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
-                string insertQuery = "INSERT INTO choosenlocks (Lock_Code, Lock_Series, Lock_Shape, Lock_Height, Lock_Type, Lock_Side, Lock_Function) VALUES (@Lock_Code, @Lock_Series, @Lock_Shape, @Lock_Height, @Lock_Type, @Lock_Side, @Lock_Function)";
+                string insertQuery = "INSERT INTO choosenlocks (Lock_Code, Lock_Series, Lock_Shape, Lock_Height, Lock_Type, Lock_Side, Lock_Function, Higher) VALUES (@Lock_Code, @Lock_Series, @Lock_Shape, @Lock_Height, @Lock_Type, @Lock_Side, @Lock_Function, @Higher)";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
                     insertCmd.Parameters.AddWithValue("@Lock_Code", reader["Lock_Code"]);
@@ -176,7 +180,7 @@ namespace WpfApp4.Pages
                     insertCmd.Parameters.AddWithValue("@Lock_Type", reader["Lock_Type"]);
                     insertCmd.Parameters.AddWithValue("@Lock_Side", reader["Lock_Side"]);
                     insertCmd.Parameters.AddWithValue("@Lock_Function", reader["Lock_Function"]);
-
+                    insertCmd.Parameters.AddWithValue("@Higher", reader["Higher"]);
                     insertCmd.ExecuteNonQuery();
                 }
             }
@@ -184,9 +188,10 @@ namespace WpfApp4.Pages
         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Page3());
+            
             GetPlateForStriker(choosenSystem);
             GetAndInsertLocks(choosenSystem);
+            NavigationService.Navigate(new Page3());
         }
 
         private void _2leaf_Checked(object sender, RoutedEventArgs e)
@@ -205,7 +210,7 @@ namespace WpfApp4.Pages
         {
            
             choosenSystem = systemscombobox.SelectedItem.ToString();
-            
+            nextbtn.IsEnabled = true;
         }
     }
 }

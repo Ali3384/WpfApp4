@@ -26,15 +26,15 @@
 
         <Label Content="Settings." HorizontalAlignment="Center" Margin="0,21,0,0" VerticalAlignment="Top" Width="248" Height="74" FontFamily="Arial" FontSize="48" Foreground="White" BorderBrush="Black" FontWeight="UltraBold"/>
         <Button x:Name="butsave" Content="Save" Margin="570,349,64,60" Click="butsave_Click"/>
-        <TextBox Name ="servertxt" HorizontalAlignment="Left" Margin="107,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox Name ="servertxt" HorizontalAlignment="Left" Margin="107,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="33"/>
         <Label Content="Server:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="107,116,0,0"/>
-        <TextBox  Name ="useridtxt" HorizontalAlignment="Left" Margin="107,207,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox  Name ="useridtxt" HorizontalAlignment="Left" Margin="107,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="33"/>
         <Label Content="User ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="107,176,0,0"/>
-        <TextBox Name ="databasetxt" HorizontalAlignment="Left" Margin="107,267,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox Name ="databasetxt" HorizontalAlignment="Left" Margin="107,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="33"/>
         <Label Content="Database:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="107,236,0,0"/>
-        <TextBox Name ="porttxt" HorizontalAlignment="Left" Margin="257,147,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox Name ="porttxt" HorizontalAlignment="Left" Margin="257,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="33"/>
         <Label Content="Port:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="257,116,0,0"/>
-        <TextBox Name="passwordtxt" HorizontalAlignment="Left" Margin="257,207,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox Name="passwordtxt" HorizontalAlignment="Left" Margin="257,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Height="33"/>
         <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14" Margin="257,176,0,0"/>
     </Grid>
 </Page>

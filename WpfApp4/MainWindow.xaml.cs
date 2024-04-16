@@ -27,6 +27,7 @@ namespace WpfApp4
         {
             InitializeComponent();
             MainFrame.Content = new WelcomePage();
+            fuhrLogo.Visibility = Visibility.Visible;
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

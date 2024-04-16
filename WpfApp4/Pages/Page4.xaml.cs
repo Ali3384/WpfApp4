@@ -23,6 +23,7 @@ namespace WpfApp4.Pages
         string typeofLock;
         string heightOfLock;
         int check;
+        public int check2 { get; set; }
         public string choosenonepiece { get; set; }
         public string str { get; set; }
         public string choosenside { get; set; }
@@ -42,6 +43,7 @@ namespace WpfApp4.Pages
             InsertIntoChoosenCentralStrikers();
             InsertIntoChoosenOnePieceStrikers();
             getIsOnePiece();
+            getIsOnePiece2();
             FillOnePieceComboBox();
             
         }
@@ -258,6 +260,30 @@ namespace WpfApp4.Pages
                 string selectQuery = "SELECT COUNT(*) FROM choosenonepiecestrikers";
                 MySqlCommand command = new MySqlCommand(selectQuery, connection);
                 check = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while checking: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public void getIsOnePiece2()
+        {
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string selectQuery = "SELECT COUNT(*) FROM finaltable";
+                MySqlCommand command = new MySqlCommand(selectQuery, connection);
+                check2 = Convert.ToInt32(command.ExecuteScalar());
             }
             catch (Exception ex)
             {
@@ -562,7 +588,7 @@ namespace WpfApp4.Pages
 
         public void FillOnePieceComboBox()
         {
-            if (check > 0)
+            if (check > 0 && check2 < 0)
             {
                 onepiececombobox.Items.Add("One Piece Striker");
                 onepiececombobox.Items.Add("Single Strikers");

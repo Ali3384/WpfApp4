@@ -23,6 +23,7 @@ namespace WpfApp4.Pages
     /// </summary>
     public partial class FinalPage : Page
     {
+        
         bool isconnection = false;
         string side;
         public string onepiece { get; set; }
@@ -31,10 +32,20 @@ namespace WpfApp4.Pages
         string choosenOnepieceStriker;
         string choosenMainStriker;
         string choosenCentralStriker;
+        public int qtystrikers;
         public FinalPage()
         {
             InitializeComponent();
+            
             Page4 page4 = new Page4();
+            if(page4.check2 > 0)
+            {
+                qtystrikers = 3;
+            }
+            else
+            {
+                qtystrikers = 2;
+            }
             systemlabel.Content = page4.choosenSystem;
             onepiece = page4.str;
             getLock();
@@ -44,7 +55,7 @@ namespace WpfApp4.Pages
             getonepiece();
             makeFinalTable();
             fillData();
-
+            
 
         }
 
@@ -121,33 +132,34 @@ namespace WpfApp4.Pages
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
 
-                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@lock, 'no', '1')";
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@lock, 'Lock', '1')";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
                     insertCmd.Parameters.AddWithValue("@lock", choosenLock);
                     
                     insertCmd.ExecuteNonQuery();
                 }
-                string insert2Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@centralstriker, 'no', '1')";
-                using (MySqlCommand insertCmd = new MySqlCommand(insert2Query, connection))
-                {
-                    insertCmd.Parameters.AddWithValue("@centralstriker", choosenCentralStriker);
-
-                    insertCmd.ExecuteNonQuery();
-                }
+                
                 if (onepiece == "Single Strikers")
                 {
-                    string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, 'no', '2')";
+                    string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, 'Striker for up/down locks', @qtystrikers)";
                     using (MySqlCommand insertCmd = new MySqlCommand(insert3Query, connection))
                     {
                         insertCmd.Parameters.AddWithValue("@mainstrikers", choosenMainStriker);
+                        insertCmd.Parameters.AddWithValue("@qtystrikers", qtystrikers);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                    string insert2Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@centralstriker, 'Central striker', '1')";
+                    using (MySqlCommand insertCmd = new MySqlCommand(insert2Query, connection))
+                    {
+                        insertCmd.Parameters.AddWithValue("@centralstriker", choosenCentralStriker);
 
                         insertCmd.ExecuteNonQuery();
                     }
                 }
                 else
                 {
-                    string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'no', '1')";
+                    string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
                     using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
                     {
                         insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);

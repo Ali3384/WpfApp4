@@ -22,7 +22,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="..\Images\background.png" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Button Content="Next Step" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="91" Click="Button_Click"/>
+        <Button Content="Next Step" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="106" Click="Button_Click"/>
         <Label Content="Choose Side of Door" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
         <ComboBox x:Name="inside_outsidecombobox" Visibility="Visible" HorizontalAlignment="Left" Margin="98,328,0,0" VerticalAlignment="Top" Width="141" />
         <Label Name ="insideoutsidelabel" Visibility="Visible" Content="Inside/Outside:" HorizontalAlignment="Left" Margin="98,302,0,0" VerticalAlignment="Top" Width="120" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>

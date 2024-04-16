@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,33 +28,170 @@ namespace WpfApp4.Pages
         public string choosenSeries;
         public string choosenType;
         public string choosenFunction;
+        public string isExtension;
+        public string lockShape;
+        public string extension;
         private MySqlConnection connection;
         private MySqlCommand cmd;
+        
         public Page3()
         {
             InitializeComponent();
+            GetFirstLockShape();
+           
             
         }
+        private void GetFirstLockShape()
+        {
 
+            string connectionString = Properties.Settings.Default.connection;
+            string query = "SELECT DISTINCT Lock_Shape FROM choosenlocks";
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                lockShape = reader.GetString(0);
+                            }
+                            else
+                            {
+                                // Handle case where no rows are returned
+                                MessageBox.Show("No lock shapes found.");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception details somewhere
+                MessageBox.Show("An error occurred while fetching lock shapes. Please try again later.");
+            }
+
+
+        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (heightcombobox.SelectedItem != null)
             {
-                choosenHeight = ((ComboBoxItem)heightcombobox.SelectedItem).Content.ToString();
+                MessageBox.Show(lockShape);
+                string combobox = ((ComboBoxItem)heightcombobox.SelectedItem).Content.ToString();
+                if (combobox == "1670-1870")
+                    choosenHeight = "Low";
+                if (combobox == "1870-2170")
+                    choosenHeight = "Standard";
+                if (combobox == "2170-2400")
+                    choosenHeight = "High";
+                if (combobox == "2390-2990")
+                {
+                    choosenHeight = "Standard";
+                    isExtension = "Yes";
+                }
+                if (combobox == "2590-3185")
+                {
+                    choosenHeight = "High";
+                    isExtension = "Yes";
+                }
                 seriescombobox.IsEnabled = true;
                 seriescombobox.Items.Clear();
                 typecombobox.Items.Clear();
                 functioncombobox.Items.Clear();
+
                 PopulateLockSeriesComboBox();
+                
             }
         }
 
+        private void GetExtensionValue()
+        {
+            string connectionString = Properties.Settings.Default.connection;
+            string query = "SELECT Item_Code FROM extensions WHERE Extension_Plate = @lockShape AND Extension_Type = @Type";
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        // Set parameter values
+                        cmd.Parameters.AddWithValue("@lockShape", lockShape);
+                        cmd.Parameters.AddWithValue("@Type", choosenType);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                extension = reader.GetString(0);
+                            }
+                            else
+                            {
+                                // Handle case where no rows are returned
+                                MessageBox.Show("No extension value found for the given criteria.");
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception details somewhere
+                MessageBox.Show("An error occurred while fetching extension value. Please try again later.");
+                
+            }
+            
+        }
+        private void AddExtension()
+        {
+            string connectionString = Properties.Settings.Default.connection;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@extension, 'Extension', '1')";
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    insertCmd.Parameters.AddWithValue("@extension", extension);
+
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
         private void PopulateLockSeriesComboBox()
         {
 
             string connectionString = Properties.Settings.Default.connection;
-            string query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height";
-
+            string query = "";
+            if (isExtension == "Yes")
+            {
+                query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height AND Higher = 'Yes'";
+            }
+            else
+            {
+                query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height";
+            }
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -80,7 +219,7 @@ namespace WpfApp4.Pages
                     connection.Close();
             }
         }
-
+        
         private void PopulateLockTypeComboBox()
         {
             string connectionString = Properties.Settings.Default.connection;
@@ -203,17 +342,29 @@ namespace WpfApp4.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-
+            
+            string deleteQuery = "";
+            if (isExtension == "Yes")
+                GetExtensionValue();
+                AddExtension();
+                
             try
             {
                 // Connection string
                 string connectionString = Properties.Settings.Default.connection;
-
-                // SQL query to delete data from choosenlocks table
-                string deleteQuery = "DELETE FROM choosenlocks " +
+                if (isExtension == "Yes") {
+                    deleteQuery = "DELETE FROM choosenlocks " +
                                      "WHERE Lock_Height != @Height OR Lock_Series != @Series " +
-                                     "OR Lock_Type != @Type OR Lock_Function != @Function";
+                                     "OR Lock_Type != @Type OR Lock_Function != @Function OR Higher = 'No'";
+                }
+                else
+                {
+                    deleteQuery = "DELETE FROM choosenlocks " +
+                                     "WHERE Lock_Height != @Height OR Lock_Series != @Series " +
+                                     "OR Lock_Type != @Type OR Lock_Function != @Function OR Higher = 'Yes'";
+                }
+                // SQL query to delete data from choosenlocks table
+                
 
                 // Open connection
                 using (connection = new MySqlConnection(connectionString))
@@ -240,5 +391,15 @@ namespace WpfApp4.Pages
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        
+
+        private void NumberValidation(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        
+        }
     }
-}
+
