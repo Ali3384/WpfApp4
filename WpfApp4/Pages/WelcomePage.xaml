@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp4.Pages"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WelcomePage">
@@ -21,8 +22,13 @@
     <Border CornerRadius="20" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
         <Grid>
             <Grid.Background>
-                <ImageBrush ImageSource="/Images/background.png" Stretch="UniformToFill"/>
+                
+                            <ImageBrush ImageSource="/Images/background.png" Stretch="UniformToFill"/>
+                        
             </Grid.Background>
+            
+                
+            
 
             <Button Name="but1" Content="Getting Started" Click="but1_Click" Margin="40,349,594,60"/>
             <Label Content="Welcome to" HorizontalAlignment="Left" Margin="40,126,0,0" VerticalAlignment="Top" Width="332" Height="62" FontFamily="Arial" FontSize="48" BorderBrush="Black" FontWeight="UltraBold" Foreground="White"/>

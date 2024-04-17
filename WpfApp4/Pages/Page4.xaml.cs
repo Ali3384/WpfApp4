@@ -24,6 +24,7 @@ namespace WpfApp4.Pages
         string heightOfLock;
         int check;
         public int check2 { get; set; }
+        public int checkfrompage4 {  get; set; }
         public string choosenonepiece { get; set; }
         public string str { get; set; }
         public string choosenside { get; set; }
@@ -147,7 +148,7 @@ namespace WpfApp4.Pages
                     }
                     else
                     {
-                        MessageBox.Show("No system found.");
+                        MessageBox.Show("No Type found.");
                     }
                 }
 
@@ -186,7 +187,7 @@ namespace WpfApp4.Pages
                     }
                     else
                     {
-                        MessageBox.Show("No system found.");
+                        MessageBox.Show("No Height found.");
                     }
                 }
 
@@ -588,7 +589,7 @@ namespace WpfApp4.Pages
 
         public void FillOnePieceComboBox()
         {
-            if (check > 0 && check2 < 0)
+            if (check > 0)
             {
                 onepiececombobox.Items.Add("One Piece Striker");
                 onepiececombobox.Items.Add("Single Strikers");
@@ -632,12 +633,19 @@ namespace WpfApp4.Pages
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-                setOnePiece();
-                mainstrikeget();
-                onepieceget();
-                centralstrikeget();
+            if(onepiececombobox.SelectedItem != null && sidecombobox.SelectedItem != null && typecombobox.SelectedItem != null) { 
+            setOnePiece();
+            mainstrikeget();
+            onepieceget();
+            centralstrikeget();
             str = choosenonepiece;
+            checkfrompage4 = check2;
             NavigationService.Navigate(new FinalPage());
+            }
+            else
+            {
+                MessageBox.Show("You didn't fill all needed data.");
+            }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -655,7 +663,14 @@ namespace WpfApp4.Pages
 
         private void sidecombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(sidecombobox.SelectedItem != null) { 
             choosenside = sidecombobox.SelectedItem.ToString();
+            }
+        }
+
+        private void inside_outsidecombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

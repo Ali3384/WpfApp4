@@ -33,18 +33,25 @@ namespace WpfApp4.Pages
         string choosenMainStriker;
         string choosenCentralStriker;
         public int qtystrikers;
+        public bool check;
+        private int forchecking;
+        string extension;
         public FinalPage()
         {
             InitializeComponent();
+            checkisneedstriker();
             
             Page4 page4 = new Page4();
+            
             if(page4.check2 > 0)
             {
                 qtystrikers = 3;
+                extension = "Striker for up/down locks and extension lock";
             }
             else
             {
                 qtystrikers = 2;
+                extension = "Striker for up/down locks";
             }
             systemlabel.Content = page4.choosenSystem;
             onepiece = page4.str;
@@ -122,7 +129,31 @@ namespace WpfApp4.Pages
                 }
             }
         }
-       
+       private void checkisneedstriker()
+        {
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string selectQuery = "SELECT COUNT(*) FROM finaltable";
+                MySqlCommand command = new MySqlCommand(selectQuery, connection);
+                forchecking = Convert.ToInt32(command.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while checking: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+            check = true;
+        }
         private void makeFinalTable()
         {
             
@@ -142,10 +173,11 @@ namespace WpfApp4.Pages
                 
                 if (onepiece == "Single Strikers")
                 {
-                    string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, 'Striker for up/down locks', @qtystrikers)";
+                    string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, @extension, @qtystrikers)";
                     using (MySqlCommand insertCmd = new MySqlCommand(insert3Query, connection))
                     {
                         insertCmd.Parameters.AddWithValue("@mainstrikers", choosenMainStriker);
+                        insertCmd.Parameters.AddWithValue("@extension", extension);
                         insertCmd.Parameters.AddWithValue("@qtystrikers", qtystrikers);
                         insertCmd.ExecuteNonQuery();
                     }
@@ -159,11 +191,29 @@ namespace WpfApp4.Pages
                 }
                 else
                 {
+                    
+                    if(check == true)
+                    {
+                        string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
+                        using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                        string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, 'Striker for extension lock', '1')";
+                        using (MySqlCommand insertCmd = new MySqlCommand(insert3Query, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("@mainstrikers", choosenMainStriker);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else { 
                     string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
                     using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
                     {
                         insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);
                         insertCmd.ExecuteNonQuery();
+                    }
                     }
                 }
             }

@@ -27,9 +27,9 @@ namespace WpfApp4.Pages
         public WelcomePage()
         {
             InitializeComponent();
-                       
+            
         }
-
+        
         private void checkConnection()
         {
             try
@@ -50,6 +50,17 @@ namespace WpfApp4.Pages
             checkConnection();
             if (isconnection)
             {
+                string connectionString = Properties.Settings.Default.connection;
+
+                // Truncate tables
+                TruncateTable(connectionString, "choosenlocks");
+                TruncateTable(connectionString, "choosenplate");
+                TruncateTable(connectionString, "choosensystem");
+                TruncateTable(connectionString, "choosenmainstrikers");
+                TruncateTable(connectionString, "choosenonepiecestrikers");
+                TruncateTable(connectionString, "choosencentralstrikers");
+                TruncateTable(connectionString, "finaltable");
+                TruncateTable(connectionString, "isonepiece");
                 NavigationService.Navigate(new Page2());
             }
             else
@@ -58,7 +69,31 @@ namespace WpfApp4.Pages
                 NavigationService.Navigate(new SettingsPage());
             }
         }
+        private void TruncateTable(string connectionString, string tableName)
+        {
+            string query = $"TRUNCATE TABLE {tableName}";
 
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+
+                    
+                }
+                finally
+                {
+                    if (connection.State == System.Data.ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+        }
         private void butsettings_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new SettingsPage());

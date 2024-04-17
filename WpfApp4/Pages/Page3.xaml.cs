@@ -24,6 +24,7 @@ namespace WpfApp4.Pages
     /// </summary>
     public partial class Page3 : Page
     {
+        public int choosenoption;
         public string choosenHeight;
         public string choosenSeries;
         public string choosenType;
@@ -33,7 +34,7 @@ namespace WpfApp4.Pages
         public string extension;
         private MySqlConnection connection;
         private MySqlCommand cmd;
-        
+        private bool choosenaddlock;
         public Page3()
         {
             InitializeComponent();
@@ -82,14 +83,20 @@ namespace WpfApp4.Pages
         {
             if (heightcombobox.SelectedItem != null)
             {
-                MessageBox.Show(lockShape);
+                
                 string combobox = ((ComboBoxItem)heightcombobox.SelectedItem).Content.ToString();
-                if (combobox == "1670-1870")
+                if (combobox == "1670-1870") { 
                     choosenHeight = "Low";
-                if (combobox == "1870-2170")
+                    isExtension = "No";
+                }
+                if (combobox == "1870-2170") { 
                     choosenHeight = "Standard";
-                if (combobox == "2170-2400")
+                    isExtension = "No";
+                }
+                if (combobox == "2170-2400") { 
                     choosenHeight = "High";
+                    isExtension = "No";
+                }
                 if (combobox == "2390-2990")
                 {
                     choosenHeight = "Standard";
@@ -188,7 +195,7 @@ namespace WpfApp4.Pages
             {
                 query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height AND Higher = 'Yes'";
             }
-            else
+            else if(isExtension == "No")
             {
                 query = "SELECT DISTINCT Lock_Series FROM choosenlocks WHERE Lock_Height = @Height";
             }
@@ -268,6 +275,14 @@ namespace WpfApp4.Pages
                 typecombobox.Items.Clear();
                 PopulateLockTypeComboBox(); // Call the new method
             }
+            if(choosenSeries != "881GL" && seriescombobox.SelectedItem != null)
+            {
+                AddLock.IsEnabled = true;
+            }
+            else if(choosenSeries == "881GL" && seriescombobox.SelectedItem != null)
+            {
+                AddLock.IsEnabled = false;
+            }
         }
         private void PopulateFunctionComboBox()
         {
@@ -339,30 +354,57 @@ namespace WpfApp4.Pages
                 NextStepBtn.IsEnabled= false;
             }
         }
+        private void addAdditionalLock()
+        {
+            string connectionString = Properties.Settings.Default.connection;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
 
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VMZ852ZR35', 'Additional deadbolt lock', '1')";
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            string deleteQuery = "";
-            if (isExtension == "Yes")
+            if(AddLock.IsChecked == true)
+            {
+                addAdditionalLock();
+            }
+            if(heightcombobox.SelectedItem != null && seriescombobox.SelectedItem != null && typecombobox.SelectedItem != null && functioncombobox.SelectedItem != null) { 
+         
+            if (isExtension == "Yes") { 
                 GetExtensionValue();
                 AddExtension();
-                
+            }
+            string connectionString = Properties.Settings.Default.connection;
+            
+            
+                string deleteQuery = "DELETE FROM choosenlocks " +
+                                 "WHERE Lock_Height != @Height OR Lock_Series != @Series " +
+                                 "OR Lock_Type != @Type OR Lock_Function != @Function";
+           
             try
             {
                 // Connection string
-                string connectionString = Properties.Settings.Default.connection;
-                if (isExtension == "Yes") {
-                    deleteQuery = "DELETE FROM choosenlocks " +
-                                     "WHERE Lock_Height != @Height OR Lock_Series != @Series " +
-                                     "OR Lock_Type != @Type OR Lock_Function != @Function OR Higher = 'No'";
-                }
-                else
-                {
-                    deleteQuery = "DELETE FROM choosenlocks " +
-                                     "WHERE Lock_Height != @Height OR Lock_Series != @Series " +
-                                     "OR Lock_Type != @Type OR Lock_Function != @Function OR Higher = 'Yes'";
-                }
+                
+                
                 // SQL query to delete data from choosenlocks table
                 
 
@@ -390,6 +432,11 @@ namespace WpfApp4.Pages
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+            }
+            else
+            {
+                MessageBox.Show("You didn't fill all needed data.");
+            }
         }
 
         
@@ -399,7 +446,45 @@ namespace WpfApp4.Pages
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-        
+
+        private void AddLock_Checked(object sender, RoutedEventArgs e)
+        {
+            choosenaddlock = true;
         }
+        private void AddLock_Unchecked(object sender, RoutedEventArgs e)
+        {
+            choosenaddlock = false;
+        }
+        private void Eopener_Checked(object sender, RoutedEventArgs e)
+        {
+            eopeneroptions.Visibility = Visibility.Visible;
+        }
+        private void Eopener_Unchecked(object sender, RoutedEventArgs e)
+        {
+            eopeneroptions.Visibility = Visibility.Hidden;
+        }
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            choosenoption = 1;
+        }
+
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            choosenoption = 2;
+        }
+
+        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        {
+            choosenoption = 3;
+        }
+
+        private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
+        {
+            choosenoption = 4;
+        }
+
+        
+    }
     }
 
