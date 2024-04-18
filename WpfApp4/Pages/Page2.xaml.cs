@@ -18,22 +18,24 @@ namespace WpfApp4.Pages
         private MySqlConnection connection;
         private MySqlCommand cmd;
         string choosenSystem = "";
-        string choosenleaf = "";
+        public string choosenleaf {  get; set; }
+        
         private List<string> systems;
+        
         public Page2()
         {
             InitializeComponent();
             _1leaf.IsChecked = true;
             PopulateComboBox();
-            
+
         }
 
         private void PopulateComboBox()
         {
-            
-            string connectionString = Properties.Settings.Default.connection; 
+
+            string connectionString = Properties.Settings.Default.connection;
             string query = "SELECT System_Name FROM systems";
-            
+
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -44,10 +46,10 @@ namespace WpfApp4.Pages
 
                 while (reader.Read())
                 {
-                    
+
                     string systemName = reader.GetString("System_Name");
                     systemscombobox.Items.Add(systemName);
-                    
+
                 }
 
                 reader.Close();
@@ -185,32 +187,56 @@ namespace WpfApp4.Pages
                 }
             }
         }
-        
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+           
             GetPlateForStriker(choosenSystem);
             GetAndInsertLocks(choosenSystem);
+            if(_1leaf.IsChecked == true)
+            {
+                Properties.Settings.Default.leaf = "1leaf";
+            }
+            else
+            {
+                Properties.Settings.Default.leaf = "2leaf";
+            }
+            
             NavigationService.Navigate(new Page3());
         }
 
         private void _2leaf_Checked(object sender, RoutedEventArgs e)
         {
-            choosenleaf = "2leaf";
+          
             _1leaf.IsChecked = false;
-            }
+        }
 
         private void _1leaf_Checked(object sender, RoutedEventArgs e)
         {
-            choosenleaf = "1leaf";
+            
             _2leaf.IsChecked = false;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
             choosenSystem = systemscombobox.SelectedItem.ToString();
+            if(plateforLock == "U22x5")
+            {
+               
+                _2leaf.IsChecked = false;
+            }
+            else
+            {
+                _2leaf.IsEnabled = true;
+               
+            }
             nextbtn.IsEnabled = true;
+        }
+
+        private void _1leaf_Unchecked(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

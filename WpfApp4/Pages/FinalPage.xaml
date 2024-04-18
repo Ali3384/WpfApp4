@@ -24,10 +24,10 @@
         </Grid.Background>
 
 
-        <Label Content="Result for system:" HorizontalAlignment="Left" Margin="41,83,0,0" VerticalAlignment="Top" Width="488" Height="67" FontFamily="Arial" FontSize="30" BorderBrush="Black" FontWeight="UltraBold" Foreground="White"/>
-        <Button x:Name="gobackhome" Content="Start Again" Margin="317,369,317,40" Click="butsettings_Click"/>
-        <DataGrid Name="finaltable"  d:ItemsSource="{Binding }" Margin="40,161,62,109" IsReadOnly="True"/>
-        <Label Name="systemlabel" Content="System" HorizontalAlignment="Left" Margin="40,118,0,0" VerticalAlignment="Top" Width="473" Height="47" FontFamily="Arial" FontSize="26" BorderBrush="Black" Foreground="White" FontStyle="Italic" FontWeight="Bold" Background="Transparent"/>
+        <Label Content="Result for system:" HorizontalAlignment="Left" Margin="196,19,0,0" VerticalAlignment="Top" Width="488" Height="67" FontFamily="Arial" FontSize="30" BorderBrush="Black" FontWeight="UltraBold" Foreground="White"/>
+        <Button x:Name="gobackhome" Content="Start Again" Margin="317,390,317,28" Click="butsettings_Click"/>
+        <DataGrid Name="finaltable"  d:ItemsSource="{Binding }" Margin="40,106,62,76" IsReadOnly="True"/>
+        <Label Name="systemlabel" Content="System" HorizontalAlignment="Left" Margin="195,54,0,0" VerticalAlignment="Top" Width="473" Height="47" FontFamily="Arial" FontSize="26" BorderBrush="Black" Foreground="White" FontStyle="Italic" FontWeight="Bold" Background="Transparent"/>
     </Grid>
 
 </Page>

@@ -36,10 +36,10 @@
         </Rectangle>
         <Button Content="Next Step" IsEnabled="False"  Name="nextbtn" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="102" Click="Button_Click"/>
         <Label Content="Choose 1 leaf or 2 leaf" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
-        <RadioButton x:Name="_1leaf" Content="" HorizontalAlignment="Left" Margin="120,191,0,0" VerticalAlignment="Top" Checked="_1leaf_Checked"/>
-        <RadioButton x:Name="_2leaf" Content="" HorizontalAlignment="Left" Margin="186,191,0,0" VerticalAlignment="Top" Checked="_2leaf_Checked"/>
+        <RadioButton x:Name="_1leaf" Content="" HorizontalAlignment="Left" Margin="120,191,0,0" VerticalAlignment="Top" Checked="_1leaf_Checked" Background="#FF00070C" Unchecked="_1leaf_Unchecked"/>
+        <RadioButton x:Name="_2leaf" Content="" HorizontalAlignment="Left" Margin="186,191,0,0" VerticalAlignment="Top" Checked="_2leaf_Checked" Background="#FF00070C"/>
         <Label Content="And System" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="408" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
-        <ComboBox Name="systemscombobox" HorizontalAlignment="Left" Margin="98,344,0,0" VerticalAlignment="Top" Width="110" SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox Name="systemscombobox" HorizontalAlignment="Left" Margin="98,344,0,0" VerticalAlignment="Top" Width="110" SelectionChanged="ComboBox_SelectionChanged" Foreground="#FF0C0000"/>
         <Label Content="System:" HorizontalAlignment="Left" Margin="98,318,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
 
     </Grid>

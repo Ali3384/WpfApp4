@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfApp4.Pages
 {
-   
+
     /// <summary>
     /// Логика взаимодействия для SettingsPage.xaml
     /// </summary>
@@ -46,7 +34,7 @@ namespace WpfApp4.Pages
         private void butsave_Click(object sender, RoutedEventArgs e)
         {
             SetNewConnectionData();
-            MessageBox.Show("Settings are saved.","Saved",MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Settings are saved.", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
             NavigationService.Navigate(new WelcomePage());
         }
 
@@ -67,7 +55,7 @@ namespace WpfApp4.Pages
 
         }
 
-        
+
 
         private void GetConnectionData()
         {
@@ -77,7 +65,7 @@ namespace WpfApp4.Pages
             string[] parts = oldconnection.Split(';');
 
             // Initialize variables to hold individual components
-             
+
 
             // Loop through the parts to extract key-value pairs
             foreach (string part in parts)

@@ -11,7 +11,7 @@
 
     <Grid Background="Transparent" >
         <Frame  x:Name="MainFrame" Background ="DarkGray" NavigationUIVisibility="Hidden"/>
-        <Rectangle Name="fuhrLogo" Visibility="Hidden" RadiusX="10" RadiusY="10" Margin="40,33,624,366">
+        <Rectangle Name="fuhrLogo" Visibility="Visible" RadiusX="10" RadiusY="10" Margin="40,33,624,366">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/Images/FUHR_Logo.jpg" Stretch="UniformToFill"/>
             </Rectangle.Fill>

@@ -24,7 +24,7 @@
         </Grid.Background>
 
 
-        <Button Name ="NextStepBtn" IsEnabled="False" Content="Next Step" HorizontalAlignment="Left" Margin="517,344,0,0" VerticalAlignment="Top" Height="32" Width="103" Click="Button_Click" FontFamily="Arial"/>
+        <Button Name ="NextStepBtn" IsEnabled="False" Content="Next Step" HorizontalAlignment="Left" Margin="326,395,0,0" VerticalAlignment="Top" Height="32" Width="103" Click="Button_Click" FontFamily="Arial"/>
         <Label Content="Choose Lock Height" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
         <Label Content="Lock Series and Type, Lock Side" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="570" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
         <ComboBox Name="heightcombobox" HorizontalAlignment="Left" Margin="98,204,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Foreground="Black" FontFamily="Arial">

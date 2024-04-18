@@ -1,20 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
-using Mysqlx.Connection;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfApp4.Pages
 {
@@ -23,7 +12,7 @@ namespace WpfApp4.Pages
     /// </summary>
     public partial class FinalPage : Page
     {
-        
+
         bool isconnection = false;
         string side;
         public string onepiece { get; set; }
@@ -34,16 +23,15 @@ namespace WpfApp4.Pages
         string choosenCentralStriker;
         public int qtystrikers;
         public bool check;
-        private int forchecking;
         string extension;
         public FinalPage()
         {
             InitializeComponent();
             checkisneedstriker();
-            
+
             Page4 page4 = new Page4();
-            
-            if(page4.check2 > 0)
+
+            if (check == true)
             {
                 qtystrikers = 3;
                 extension = "Striker for up/down locks and extension lock";
@@ -62,7 +50,7 @@ namespace WpfApp4.Pages
             getonepiece();
             makeFinalTable();
             fillData();
-            
+
 
         }
 
@@ -71,9 +59,10 @@ namespace WpfApp4.Pages
             NavigationService.Navigate(new WelcomePage());
             closing();
         }
+
         public void closing()
         {
-            
+
 
             // Truncate tables
             TruncateTable(connectionString, "choosenlocks");
@@ -129,34 +118,34 @@ namespace WpfApp4.Pages
                 }
             }
         }
-       private void checkisneedstriker()
+        private void checkisneedstriker()
         {
-            MySqlConnection connection = null;
-            try
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                connection = new MySqlConnection(connectionString);
-                connection.Open();
+                string query = "SELECT COUNT(*) FROM finaltable WHERE Item_Description = @ItemDescription";
 
-                string selectQuery = "SELECT COUNT(*) FROM finaltable";
-                MySqlCommand command = new MySqlCommand(selectQuery, connection);
-                forchecking = Convert.ToInt32(command.ExecuteScalar());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error while checking: " + ex.Message);
-            }
-            finally
-            {
-                if (connection != null && connection.State == ConnectionState.Open)
+                using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    connection.Close();
+                    command.Parameters.AddWithValue("@ItemDescription", "Extension");
+
+                    try
+                    {
+                        connection.Open();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        check = count > 0;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
                 }
             }
-            check = true;
+
         }
         private void makeFinalTable()
         {
-            
+
             MySqlConnection connection = null;
             try
             {
@@ -167,10 +156,10 @@ namespace WpfApp4.Pages
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
                     insertCmd.Parameters.AddWithValue("@lock", choosenLock);
-                    
+
                     insertCmd.ExecuteNonQuery();
                 }
-                
+
                 if (onepiece == "Single Strikers")
                 {
                     string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, @extension, @qtystrikers)";
@@ -191,8 +180,8 @@ namespace WpfApp4.Pages
                 }
                 else
                 {
-                    
-                    if(check == true)
+
+                    if (check == true)
                     {
                         string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
                         using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
@@ -207,13 +196,14 @@ namespace WpfApp4.Pages
                             insertCmd.ExecuteNonQuery();
                         }
                     }
-                    else { 
-                    string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
-                    using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
+                    else
                     {
-                        insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);
-                        insertCmd.ExecuteNonQuery();
-                    }
+                        string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
+                        using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);
+                            insertCmd.ExecuteNonQuery();
+                        }
                     }
                 }
             }

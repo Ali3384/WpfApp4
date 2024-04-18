@@ -34,5 +34,17 @@ namespace WpfApp4.Properties {
                 this["connection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string leaf {
+            get {
+                return ((string)(this["leaf"]));
+            }
+            set {
+                this["leaf"] = value;
+            }
+        }
     }
 }

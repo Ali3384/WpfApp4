@@ -17,24 +17,29 @@ namespace WpfApp4.Pages
         private MySqlCommand cmd;
         string strikePlate;
 
-        public string choosenSystem { get; set;}
+        public string choosenSystem { get; set; }
         string isAsymmetric;
         string choosentype;
         string typeofLock;
         string heightOfLock;
         int check;
         public int check2 { get; set; }
-        public int checkfrompage4 {  get; set; }
+        public int checkfrompage4 { get; set; }
         public string choosenonepiece { get; set; }
         public string str { get; set; }
         public string choosenside { get; set; }
-        
+        public string eopenerfrompage3;
+        bool eOpenerExists = false;
+        bool addLockExists = false;
+        string addlockstriker;
         public Page4()
         {
-           
-            
+
+
             InitializeComponent();
-            
+            Page3 page3 = new Page3();
+            eopenerfrompage3 = page3.eopener;
+
             GetLockinfo();
             GetLockHeightinfo();
             GetPlateForStriker();
@@ -46,7 +51,8 @@ namespace WpfApp4.Pages
             getIsOnePiece();
             getIsOnePiece2();
             FillOnePieceComboBox();
-            
+            CheckIfEOpenerExists();
+            checkAddLock();
         }
 
 
@@ -89,6 +95,109 @@ namespace WpfApp4.Pages
                 }
             }
         }
+        public void CheckIfEOpenerExists()
+        {
+
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM finaltable WHERE Item_Description = @ItemDescription";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ItemDescription", "E-Opener");
+
+                    try
+                    {
+                        connection.Open();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        eOpenerExists = count > 0;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+
+        }
+        private void addStrikerForAdditionalLock()
+        {
+
+            if (strikePlate == "U24x8,5")
+            {
+                addlockstriker = "VRNC58590";
+            }
+            else if (strikePlate == "U24x6,5")
+            {
+                addlockstriker = "VRNC58912";
+            }
+            else if (strikePlate == "U24x5")
+            {
+                addlockstriker = "VRNC58592";
+            }
+            else if (isAsymmetric == "Yes" && strikePlate == "U24x5")
+            {
+                addlockstriker = "VRNC54138";
+            }
+            else if (strikePlate == "U22x5")
+            {
+                addlockstriker = "VRNC57285";
+            }
+            else if (strikePlate == "F24")
+            {
+                addlockstriker = "VRNC48240";
+            }
+            string connectionString = Properties.Settings.Default.connection;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@addlockstriker, 'Striker for additional deadbolt lock', '1')";
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    insertCmd.Parameters.AddWithValue("@addlockstriker", addlockstriker);
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        private void checkAddLock()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM finaltable WHERE Item_Description = @ItemDescription";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ItemDescription", "Additional deadbolt lock");
+
+                    try
+                    {
+                        connection.Open();
+                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        addLockExists = count > 0;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Handle exceptions here
+                        Console.WriteLine("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+        }
         public void GetSysteminfo()
         {
             MySqlConnection connection = null;
@@ -109,10 +218,10 @@ namespace WpfApp4.Pages
                     }
                     else
                     {
-                        MessageBox.Show("No system found.");
+                        MessageBox.Show("No system found in choosensystem.");
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -126,7 +235,7 @@ namespace WpfApp4.Pages
                 }
             }
 
-            
+
         }
         public void GetLockinfo()
         {
@@ -225,7 +334,7 @@ namespace WpfApp4.Pages
                     }
                     else
                     {
-                        MessageBox.Show("No system found.");
+                        
                     }
                 }
             }
@@ -406,7 +515,7 @@ namespace WpfApp4.Pages
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-                
+
                 if (choosenonepiece == "Single Strikers")
                 {
                     selectQuery = "SELECT DISTINCT Striker_Type FROM choosenmainstrikers";
@@ -415,7 +524,7 @@ namespace WpfApp4.Pages
                 {
                     selectQuery = "SELECT DISTINCT Striker_Type FROM choosenonepiecestrikers";
                 }
-                
+
 
                 using (MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection))
                 {
@@ -549,7 +658,7 @@ namespace WpfApp4.Pages
                 {
                     selectQuery = "SELECT DISTINCT Striker_side FROM choosenonepiecestrikers WHERE Striker_Type = @choosentype";
                 }
-                
+
 
                 using (MySqlCommand selectCmd = new MySqlCommand(selectQuery, connection))
                 {
@@ -601,46 +710,90 @@ namespace WpfApp4.Pages
         }
         private void setOnePiece()
         {
-            
 
-                MySqlConnection connection = null;
-                try
-                {
-                    connection = new MySqlConnection(connectionString);
-                    connection.Open();
+
+            MySqlConnection connection = null;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
 
                 string insertQuery = "INSERT INTO isonepiece (Result) VALUES (@result)";
-                    using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
-                    {
-                        insertCmd.Parameters.AddWithValue("@result", choosenonepiece);
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    insertCmd.Parameters.AddWithValue("@result", choosenonepiece);
 
-                        insertCmd.ExecuteNonQuery();
-                    }
-                   
+                    insertCmd.ExecuteNonQuery();
                 }
-                catch (Exception ex)
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting data into isonepiece table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
                 {
-                    MessageBox.Show("Error while inserting data into isonepiece table: " + ex.Message);
+                    connection.Close();
                 }
-                finally
-                {
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
-            
+            }
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(onepiececombobox.SelectedItem != null && sidecombobox.SelectedItem != null && typecombobox.SelectedItem != null) { 
-            setOnePiece();
-            mainstrikeget();
-            onepieceget();
-            centralstrikeget();
-            str = choosenonepiece;
-            checkfrompage4 = check2;
-            NavigationService.Navigate(new FinalPage());
+            if (onepiececombobox.SelectedItem != null && sidecombobox.SelectedItem != null && typecombobox.SelectedItem != null)
+            {
+                if (addLockExists == true && choosenonepiece == "Single Strikers")
+                {
+                    addStrikerForAdditionalLock();
+                }
+                if (eOpenerExists == true)
+                {
+                    string insertQuery = "";
+                    if (strikePlate != "F24")
+                    {
+                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR14761', 'Latch slide for E-Opener', '1')";
+                    }else if (choosenSystem == "WICONA WICSTYLE 75 evo")
+                    {
+                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR59300', 'Latch slide for E-Opener', '1')";
+                    }
+                    else
+                    {
+                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR69641', 'Latch slide for E-Opener', '1')";
+                    }
+                    string connectionString = Properties.Settings.Default.connection;
+                    try
+                    {
+                        connection = new MySqlConnection(connectionString);
+                        connection.Open();
+
+
+                        using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                        {
+
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error while inserting e-opener latch slide data: " + ex.Message);
+                    }
+                    finally
+                    {
+                        if (connection != null && connection.State == ConnectionState.Open)
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+                setOnePiece();
+                mainstrikeget();
+                onepieceget();
+                centralstrikeget();
+                str = choosenonepiece;
+                checkfrompage4 = check2;
+                NavigationService.Navigate(new FinalPage());
             }
             else
             {
@@ -656,15 +809,16 @@ namespace WpfApp4.Pages
         public void onepiececombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             choosenonepiece = onepiececombobox.SelectedItem.ToString();
-            
+
             typecombobox.Items.Clear();
-                FillTypeComboBox();
+            FillTypeComboBox();
         }
 
         private void sidecombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(sidecombobox.SelectedItem != null) { 
-            choosenside = sidecombobox.SelectedItem.ToString();
+            if (sidecombobox.SelectedItem != null)
+            {
+                choosenside = sidecombobox.SelectedItem.ToString();
             }
         }
 
