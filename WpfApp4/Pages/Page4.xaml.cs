@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -105,7 +106,8 @@ namespace WpfApp4.Pages
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ItemDescription", "E-Opener");
+                    byte[] eopener = Encoding.UTF8.GetBytes(Properties.Resources.adde_opener);
+                    command.Parameters.AddWithValue("@ItemDescription", eopener);
 
                     try
                     {
@@ -135,7 +137,7 @@ namespace WpfApp4.Pages
             }
             else if (strikePlate == "U24x5")
             {
-                addlockstriker = "VRNC58592";
+                addlockstriker = "VRNC54138";
             }
             else if (isAsymmetric == "Yes" && strikePlate == "U24x5")
             {
@@ -155,10 +157,12 @@ namespace WpfApp4.Pages
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
 
-                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@addlockstriker, 'Striker for additional deadbolt lock', '1')";
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@addlockstriker, @striker_addlock, '1')";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
+                    byte[] striker_addlock = Encoding.UTF8.GetBytes(Properties.Resources.striker_for_addlock);
                     insertCmd.Parameters.AddWithValue("@addlockstriker", addlockstriker);
+                    insertCmd.Parameters.AddWithValue("@striker_addlock", striker_addlock);
                     insertCmd.ExecuteNonQuery();
                 }
             }
@@ -182,7 +186,8 @@ namespace WpfApp4.Pages
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ItemDescription", "Additional deadbolt lock");
+                    byte[] addlock = Encoding.UTF8.GetBytes(Properties.Resources.add_lock_insert);
+                    command.Parameters.AddWithValue("@ItemDescription", addlock);
 
                     try
                     {
@@ -195,6 +200,48 @@ namespace WpfApp4.Pages
                         // Handle exceptions here
                         Console.WriteLine("An error occurred: " + ex.Message);
                     }
+                }
+            }
+        }
+
+        private void addStrikerForUpperBolt()
+        {
+            string insertQuery;
+            if (strikePlate == "F24")
+            {
+                insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRNR58613', @striker_upper, '1')";
+            }
+            else if (strikePlate == "U24x8,5")
+            {
+                insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRNR58608', @striker_upper, '1')";
+            }
+            else
+            {
+                insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRNR58610', @striker_upper, '1')";
+            }
+            string connectionString = Properties.Settings.Default.connection;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    byte[] upperboltstriker = Encoding.UTF8.GetBytes(Properties.Resources.upperboltstriker);
+                    insertCmd.Parameters.AddWithValue("@striker_upper", upperboltstriker);
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting striker for round rod into final table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
                 }
             }
         }
@@ -334,7 +381,7 @@ namespace WpfApp4.Pages
                     }
                     else
                     {
-                        
+
                     }
                 }
             }
@@ -748,19 +795,24 @@ namespace WpfApp4.Pages
                 {
                     addStrikerForAdditionalLock();
                 }
+                if (Properties.Settings.Default.leaf == "2leaf")
+                {
+                    addStrikerForUpperBolt();
+                }
                 if (eOpenerExists == true)
                 {
                     string insertQuery = "";
                     if (strikePlate != "F24")
                     {
-                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR14761', 'Latch slide for E-Opener', '1')";
-                    }else if (choosenSystem == "WICONA WICSTYLE 75 evo")
+                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR14761', @addlatchslide, '1')";
+                    }
+                    else if (choosenSystem == "WICONA WICSTYLE 75 evo")
                     {
-                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR59300', 'Latch slide for E-Opener', '1')";
+                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR59300', @addlatchslide, '1')";
                     }
                     else
                     {
-                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR69641', 'Latch slide for E-Opener', '1')";
+                        insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR69641', @addlatchslide, '1')";
                     }
                     string connectionString = Properties.Settings.Default.connection;
                     try
@@ -771,7 +823,8 @@ namespace WpfApp4.Pages
 
                         using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                         {
-
+                            byte[] addlatchslide = Encoding.UTF8.GetBytes(Properties.Resources.e_opener_latchslide);
+                            insertCmd.Parameters.AddWithValue("@addlatchslide", addlatchslide);
                             insertCmd.ExecuteNonQuery();
                         }
                     }

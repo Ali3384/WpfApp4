@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:WpfApp4.Pages"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
+      xmlns:p = "clr-namespace:WpfApp4.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page2">
@@ -24,23 +25,23 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background.png"/>
         </Grid.Background>
-        <Rectangle RadiusX="10" RadiusY="10" Margin="98,215,646,177">
+        <Rectangle RadiusX="10" RadiusY="10" Margin="26,239,718,153">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="..\Images\1door.png" Stretch="UniformToFill"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle RadiusX="10" RadiusY="10" Margin="167,215,577,177">
+        <Rectangle RadiusX="10" RadiusY="10" Margin="95,239,649,153">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/Images/2door.png" Stretch="UniformToFill"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Button Content="Next Step" IsEnabled="False"  Name="nextbtn" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="102" Click="Button_Click"/>
-        <Label Content="Choose 1 leaf or 2 leaf" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
-        <RadioButton x:Name="_1leaf" Content="" HorizontalAlignment="Left" Margin="120,191,0,0" VerticalAlignment="Top" Checked="_1leaf_Checked" Background="#FF00070C" Unchecked="_1leaf_Unchecked"/>
-        <RadioButton x:Name="_2leaf" Content="" HorizontalAlignment="Left" Margin="186,191,0,0" VerticalAlignment="Top" Checked="_2leaf_Checked" Background="#FF00070C"/>
-        <Label Content="And System" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="408" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
-        <ComboBox Name="systemscombobox" HorizontalAlignment="Left" Margin="98,344,0,0" VerticalAlignment="Top" Width="110" SelectionChanged="ComboBox_SelectionChanged" Foreground="#FF0C0000"/>
-        <Label Content="System:" HorizontalAlignment="Left" Margin="98,318,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <Button Content="{x:Static p:Resources.next_step_btn}" IsEnabled="False"  Name="nextbtn" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="102" Click="Button_Click"/>
+        <Label Content="{x:Static p:Resources.choose_leaf}" HorizontalAlignment="Left" Margin="124,90,0,0" VerticalAlignment="Top" Width="569" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
+        <RadioButton x:Name="_1leaf" Content="" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" Checked="_1leaf_Checked" Background="#FF00070C" Unchecked="_1leaf_Unchecked"/>
+        <RadioButton x:Name="_2leaf" Content="" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Center" Checked="_2leaf_Checked" Background="#FF00070C"/>
+        <Label Content="{x:Static p:Resources.and_system}" HorizontalAlignment="Left" Margin="124,134,0,0" VerticalAlignment="Top" Width="569" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
+        <ComboBox Name="systemscombobox" HorizontalAlignment="Left" Margin="26,368,0,0" VerticalAlignment="Top" Width="110" SelectionChanged="ComboBox_SelectionChanged" Foreground="#FF0C0000"/>
+        <Label Content="{x:Static p:Resources.system}" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
 
     </Grid>
 </Page>

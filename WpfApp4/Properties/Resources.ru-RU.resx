@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="adde_opener" xml:space="preserve">
+    <value>Электрозащелка</value>
+  </data>
+  <data name="additions" xml:space="preserve">
+    <value>Дополнение:</value>
+  </data>
+  <data name="addlock" xml:space="preserve">
+    <value>Доп. Замок</value>
+  </data>
+  <data name="add_lock_insert" xml:space="preserve">
+    <value>Доп замок</value>
+  </data>
+  <data name="and_system" xml:space="preserve">
+    <value>И систему</value>
+  </data>
+  <data name="and_type_of_solution" xml:space="preserve">
+    <value>И тип решения</value>
+  </data>
+  <data name="centralstrikeradd" xml:space="preserve">
+    <value>Центральная ответная планка</value>
+  </data>
+  <data name="changeqty" xml:space="preserve">
+    <value>Изменить кол-во вручную</value>
+  </data>
+  <data name="choose_leaf" xml:space="preserve">
+    <value>Выберите 1 створку или 2</value>
+  </data>
+  <data name="choose_lock_height" xml:space="preserve">
+    <value>Выберите высоту замка</value>
+  </data>
+  <data name="choose_material_of_profile" xml:space="preserve">
+    <value>Выберите материал профиля</value>
+  </data>
+  <data name="choose_side_of_door" xml:space="preserve">
+    <value>Выберите сторону двери</value>
+  </data>
+  <data name="column_code" xml:space="preserve">
+    <value>Артикул</value>
+  </data>
+  <data name="column_description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="column_qty" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="configurator_for" xml:space="preserve">
+    <value>в конфигуратор для</value>
+  </data>
+  <data name="espagnolette_bolt" xml:space="preserve">
+    <value>Шпингалет для неактивной створки</value>
+  </data>
+  <data name="exportpdf" xml:space="preserve">
+    <value>Экспорт на PDF</value>
+  </data>
+  <data name="extension" xml:space="preserve">
+    <value>Удлинитель</value>
+  </data>
+  <data name="extensionadd1" xml:space="preserve">
+    <value>Ответная планка для вверх/ниж. замка и удлинителья</value>
+  </data>
+  <data name="extensionadd2" xml:space="preserve">
+    <value>Ответная планка для вверх/ниж. замка</value>
+  </data>
+  <data name="extensionstrikeradd" xml:space="preserve">
+    <value>Ответная планка для удлинителья</value>
+  </data>
+  <data name="e_opener" xml:space="preserve">
+    <value>Электрозащелка</value>
+  </data>
+  <data name="e_opener_latchslide" xml:space="preserve">
+    <value>Трамплин для электрозащелки</value>
+  </data>
+  <data name="e_opener_mechanical" xml:space="preserve">
+    <value>Механическая электрозащелка</value>
+  </data>
+  <data name="e_opener_options" xml:space="preserve">
+    <value>Варианты электрозащелок</value>
+  </data>
+  <data name="e_opener_reversive_12v" xml:space="preserve">
+    <value>Реверсивная 12V</value>
+  </data>
+  <data name="e_opener_reversive_24v" xml:space="preserve">
+    <value>Реверсивная 24V</value>
+  </data>
+  <data name="e_opener_standard" xml:space="preserve">
+    <value>Стандартная 10-24V</value>
+  </data>
+  <data name="fuhr_lock_systems" xml:space="preserve">
+    <value>замков FUHR.</value>
+  </data>
+  <data name="function" xml:space="preserve">
+    <value>Функция:</value>
+  </data>
+  <data name="getting_started" xml:space="preserve">
+    <value>Начать</value>
+  </data>
+  <data name="height" xml:space="preserve">
+    <value>Высота:</value>
+  </data>
+  <data name="inside_outside" xml:space="preserve">
+    <value>Внутр/Наружу:</value>
+  </data>
+  <data name="lock_add" xml:space="preserve">
+    <value>Замок</value>
+  </data>
+  <data name="lock_series_type_side" xml:space="preserve">
+    <value>Серию и тип, сторону замка</value>
+  </data>
+  <data name="material_of_profile" xml:space="preserve">
+    <value>Материал профиля:</value>
+  </data>
+  <data name="next_step_btn" xml:space="preserve">
+    <value>След. этап</value>
+  </data>
+  <data name="onepiecestrikeradd" xml:space="preserve">
+    <value>Целная ответная планка</value>
+  </data>
+  <data name="one_piece_or_single" xml:space="preserve">
+    <value>Целая или отдельная:</value>
+  </data>
+  <data name="result_for_system" xml:space="preserve">
+    <value>Результаты для системы:</value>
+  </data>
+  <data name="rod_guide" xml:space="preserve">
+    <value>Направляющая </value>
+  </data>
+  <data name="round_rod_2000" xml:space="preserve">
+    <value>Стержень 2000mm</value>
+  </data>
+  <data name="round_rod_2500" xml:space="preserve">
+    <value>Стержень 2500mm</value>
+  </data>
+  <data name="round_rod_3000" xml:space="preserve">
+    <value>Стержень 3000mm</value>
+  </data>
+  <data name="series" xml:space="preserve">
+    <value>Серия замков:</value>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="side" xml:space="preserve">
+    <value>Сторона:</value>
+  </data>
+  <data name="solution" xml:space="preserve">
+    <value>Решение:</value>
+  </data>
+  <data name="start_again_btn" xml:space="preserve">
+    <value>Начать заново</value>
+  </data>
+  <data name="striker_for_addlock" xml:space="preserve">
+    <value>Ответная планка для доп. замка</value>
+  </data>
+  <data name="system" xml:space="preserve">
+    <value>Система:</value>
+  </data>
+  <data name="threshold_strike_plate" xml:space="preserve">
+    <value>Ответная планка для порога</value>
+  </data>
+  <data name="type" xml:space="preserve">
+    <value>Тип:</value>
+  </data>
+  <data name="upperboltstriker" xml:space="preserve">
+    <value>Вверхная планка для стержня </value>
+  </data>
+  <data name="welcome_to" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+</root>

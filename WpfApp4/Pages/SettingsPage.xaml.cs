@@ -1,7 +1,13 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Globalization;
+using System.Threading;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace WpfApp4.Pages
 {
@@ -23,6 +29,7 @@ namespace WpfApp4.Pages
         string uidold = "";
         string pwdold = "";
         string databaseold = "";
+        string selectedlanguage;
         public SettingsPage()
         {
             InitializeComponent();
@@ -35,7 +42,18 @@ namespace WpfApp4.Pages
         {
             SetNewConnectionData();
             MessageBox.Show("Settings are saved.", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-            NavigationService.Navigate(new WelcomePage());
+            if(language.SelectedItem != null)
+            {
+
+                Properties.Settings.Default.selected_language = selectedlanguage;
+                Properties.Settings.Default.Save();
+            }
+            
+            //NavigationService.Navigate(new WelcomePage());
+            string executable = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            Process.Start(executable);
+            Application.Current.Shutdown();
+
         }
 
         private void SetNewConnectionData()
@@ -46,6 +64,7 @@ namespace WpfApp4.Pages
             connectionStringBuilder.Append("uid=").Append(useridtxt.Text).Append(";");
             connectionStringBuilder.Append("pwd=").Append(passwordtxt.Text).Append(";");
             connectionStringBuilder.Append("database=").Append(databasetxt.Text).Append(";");
+            connectionStringBuilder.Append("charset = utf8mb4;");
 
             newconnection = connectionStringBuilder.ToString();
             Properties.Settings.Default.connection = newconnection;
@@ -109,6 +128,26 @@ namespace WpfApp4.Pages
             useridtxt.Text = uidold;
             passwordtxt.Text = pwdold;
             databasetxt.Text = databaseold;
+        }
+        
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(language.SelectedIndex == 0)
+            {
+                selectedlanguage = "en-US";
+                
+            }
+            if (language.SelectedIndex == 1)
+            {
+                selectedlanguage = "ru-RU";
+
+            }
+            if (language.SelectedIndex == 2)
+            {
+                selectedlanguage = "pl-PL";
+
+            }
         }
     }
 }

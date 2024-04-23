@@ -1,9 +1,19 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using Microsoft.Win32;
+using System.Windows.Documents;
+using System.Xml.Linq;
+using System.IO;
+using iText.IO.Image;
+using System.Windows.Media;
 
 namespace WpfApp4.Pages
 {
@@ -24,6 +34,7 @@ namespace WpfApp4.Pages
         public int qtystrikers;
         public bool check;
         string extension;
+        DataTable dataTable = new DataTable();
         public FinalPage()
         {
             InitializeComponent();
@@ -34,12 +45,12 @@ namespace WpfApp4.Pages
             if (check == true)
             {
                 qtystrikers = 3;
-                extension = "Striker for up/down locks and extension lock";
+                extension = Properties.Resources.extensionadd1;
             }
             else
             {
                 qtystrikers = 2;
-                extension = "Striker for up/down locks";
+                extension = Properties.Resources.extensionadd2;
             }
             systemlabel.Content = page4.choosenSystem;
             onepiece = page4.str;
@@ -84,8 +95,12 @@ namespace WpfApp4.Pages
                     string query = "SELECT Item_Code, Quantity, Item_Description FROM finaltable";
                     MySqlCommand command = new MySqlCommand(query, connection);
                     MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
+                   
                     adapter.Fill(dataTable);
+                    dataTable.Columns["Item_Code"].ColumnName = Properties.Resources.column_code;
+                    dataTable.Columns["Quantity"].ColumnName = Properties.Resources.column_qty;
+                    dataTable.Columns["Item_Description"].ColumnName = Properties.Resources.column_description;
+
                     finaltable.ItemsSource = dataTable.DefaultView;
                 }
             }
@@ -126,7 +141,8 @@ namespace WpfApp4.Pages
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ItemDescription", "Extension");
+                    byte[] addextension = Encoding.UTF8.GetBytes(Properties.Resources.extension);
+                    command.Parameters.AddWithValue("@ItemDescription", addextension);
 
                     try
                     {
@@ -152,11 +168,12 @@ namespace WpfApp4.Pages
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
 
-                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@lock, 'Lock', '1')";
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@lock, @addlock, '1')";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
+                    byte[] addlock = Encoding.UTF8.GetBytes(Properties.Resources.lock_add);
                     insertCmd.Parameters.AddWithValue("@lock", choosenLock);
-
+                    insertCmd.Parameters.AddWithValue("addlock", addlock);
                     insertCmd.ExecuteNonQuery();
                 }
 
@@ -165,16 +182,18 @@ namespace WpfApp4.Pages
                     string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, @extension, @qtystrikers)";
                     using (MySqlCommand insertCmd = new MySqlCommand(insert3Query, connection))
                     {
+                        byte[] addextension = Encoding.UTF8.GetBytes(extension);
                         insertCmd.Parameters.AddWithValue("@mainstrikers", choosenMainStriker);
-                        insertCmd.Parameters.AddWithValue("@extension", extension);
+                        insertCmd.Parameters.AddWithValue("@extension", addextension);
                         insertCmd.Parameters.AddWithValue("@qtystrikers", qtystrikers);
                         insertCmd.ExecuteNonQuery();
                     }
-                    string insert2Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@centralstriker, 'Central striker', '1')";
+                    string insert2Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@centralstriker, @addcentralstriker, '1')";
                     using (MySqlCommand insertCmd = new MySqlCommand(insert2Query, connection))
                     {
+                        byte[] addcentralstriker = Encoding.UTF8.GetBytes(Properties.Resources.centralstrikeradd);
                         insertCmd.Parameters.AddWithValue("@centralstriker", choosenCentralStriker);
-
+                        insertCmd.Parameters.AddWithValue("@addcentralstriker", addcentralstriker);
                         insertCmd.ExecuteNonQuery();
                     }
                 }
@@ -183,25 +202,31 @@ namespace WpfApp4.Pages
 
                     if (check == true)
                     {
-                        string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
+                        string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, @onepiecestrikeradd, '1')";
                         using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
                         {
+                            byte[] onepiecestrikeradd = Encoding.UTF8.GetBytes(Properties.Resources.onepiecestrikeradd);
                             insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);
+                            insertCmd.Parameters.AddWithValue("@onepiecestrikeradd", onepiecestrikeradd);
                             insertCmd.ExecuteNonQuery();
                         }
-                        string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, 'Striker for extension lock', '1')";
+                        string insert3Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@mainstrikers, @addextensionstriker, '1')";
                         using (MySqlCommand insertCmd = new MySqlCommand(insert3Query, connection))
                         {
+                            byte[] addextensionstriker = Encoding.UTF8.GetBytes(Properties.Resources.extensionstrikeradd);
                             insertCmd.Parameters.AddWithValue("@mainstrikers", choosenMainStriker);
+                            insertCmd.Parameters.AddWithValue("@addextensionstriker", addextensionstriker);
                             insertCmd.ExecuteNonQuery();
                         }
                     }
                     else
                     {
-                        string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, 'One Piece Striker', '1')";
+                        string insert4Query = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@onepiecestriker, @onepiecestrikeradd, '1')";
                         using (MySqlCommand insertCmd = new MySqlCommand(insert4Query, connection))
                         {
+                            byte[] onepiecestrikeradd = Encoding.UTF8.GetBytes(Properties.Resources.onepiecestrikeradd);
                             insertCmd.Parameters.AddWithValue("@onepiecestriker", choosenOnepieceStriker);
+                            insertCmd.Parameters.AddWithValue("@onepiecestrikeradd", onepiecestrikeradd);
                             insertCmd.ExecuteNonQuery();
                         }
                     }
@@ -406,5 +431,131 @@ namespace WpfApp4.Pages
             }
         }
 
+        private void export_pdf_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Create a SaveFileDialog to prompt the user for the file location
+                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+                saveFileDialog.FilterIndex = 2;
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    // Create a PdfWriter
+                    PdfWriter writer = new PdfWriter(filePath);
+
+                    // Create a PdfDocument
+                    PdfDocument pdf = new PdfDocument(writer);
+
+                    // Create a Document
+                    Document document = new Document(pdf);
+
+                    // Add header
+                    
+
+                    // Add header image
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        Properties.Resources.header.Save(ms, System.Drawing.Imaging.ImageFormat.Png); // Assuming the image is PNG format, adjust if necessary
+                        byte[] imageBytes = ms.ToArray();
+
+                        // Create ImageData from byte array
+                        ImageData imageData = ImageDataFactory.Create(imageBytes);
+
+                        // Create iText Image element
+                        iText.Layout.Element.Image headerImage = new iText.Layout.Element.Image(imageData);
+
+                        // Add the image to the document
+                        document.Add(headerImage);
+                    }
+                    iText.Layout.Element.Paragraph header = new iText.Layout.Element.Paragraph("Date: " + DateTime.Now.ToString("yyyy-MM-dd") + "\n" +
+                                                        "Order for: FUHR Polska\n\n")
+                        .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                        .SetFontSize(16);
+                    document.Add(header);
+                    // Create table
+                    iText.Layout.Element.Table pdfTable = new iText.Layout.Element.Table(dataTable.Columns.Count);
+
+                    // Add headers
+                    foreach (DataColumn column in dataTable.Columns)
+                    {
+                        pdfTable.AddHeaderCell(column.ColumnName);
+                    }
+
+                    // Add rows
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        foreach (object item in row.ItemArray)
+                        {
+                            pdfTable.AddCell(item.ToString());
+                        }
+                    }
+
+                    document.Add(pdfTable);
+
+                    // Close the Document
+                    document.Close();
+
+                    MessageBox.Show("PDF file exported successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting to PDF: " + ex.ToString());
+            }
+        }
+
+        private void export_pdf_Копировать_Click(object sender, RoutedEventArgs e)
+        {
+            finaltable.IsReadOnly = false;
+            finaltable.Background = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+        }
+        private void IncreaseQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the selected row
+            DataRowView selectedRow = (DataRowView)finaltable.SelectedItem;
+
+            if (selectedRow != null)
+            {
+                // Get the index of the selected row
+                int rowIndex = dataTable.Rows.IndexOf(selectedRow.Row);
+
+                // Increase the quantity by 1
+                int currentQuantity = int.Parse(selectedRow.Row[Properties.Resources.column_qty].ToString());
+                currentQuantity++;
+                selectedRow.Row[Properties.Resources.column_qty] = currentQuantity;
+
+                // Update the DataTable
+                dataTable.AcceptChanges();
+            }
+        }
+
+        private void DecreaseQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the selected row
+            DataRowView selectedRow = (DataRowView)finaltable.SelectedItem;
+
+            if (selectedRow != null)
+            {
+                // Get the index of the selected row
+                int rowIndex = dataTable.Rows.IndexOf(selectedRow.Row);
+
+                // Decrease the quantity by 1, but ensure it doesn't go below 0
+                int currentQuantity = int.Parse(selectedRow.Row[Properties.Resources.column_qty].ToString());
+                if (currentQuantity > 0)
+                {
+                    currentQuantity--;
+                    selectedRow.Row[Properties.Resources.column_qty] = currentQuantity;
+
+                    // Update the DataTable
+                    dataTable.AcceptChanges();
+                }
+            }
+        }
     }
 }

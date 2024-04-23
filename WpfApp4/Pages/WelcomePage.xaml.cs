@@ -15,7 +15,6 @@ namespace WpfApp4.Pages
         public WelcomePage()
         {
             InitializeComponent();
-
         }
 
         private void checkConnection()
@@ -50,7 +49,7 @@ namespace WpfApp4.Pages
                 TruncateTable(connectionString, "choosencentralstrikers");
                 TruncateTable(connectionString, "finaltable");
                 TruncateTable(connectionString, "isonepiece");
-                NavigationService.Navigate(new Page2());
+                NavigationService.Navigate(new Page1());
             }
             else
             {

@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,11 +25,13 @@ namespace WpfApp4.Pages
         public string isExtension;
         public string lockShape;
         public string extension;
-        public string choosenleaf {  get; set; }
+        public string choosenleaf { get; set; }
         public string eopener { get; set; }
         private MySqlConnection connection;
         private MySqlCommand cmd;
         private bool choosenaddlock;
+        public string roundrod;
+        public string roundrodheight;
         public Page3()
         {
             InitializeComponent();
@@ -82,26 +85,36 @@ namespace WpfApp4.Pages
                 string combobox = ((ComboBoxItem)heightcombobox.SelectedItem).Content.ToString();
                 if (combobox == "1670-1870")
                 {
+                    roundrod = "VQRG10V20";
+                    roundrodheight = Properties.Resources.round_rod_2000;
                     choosenHeight = "Low";
                     isExtension = "No";
                 }
                 if (combobox == "1870-2170")
                 {
+                    roundrod = "VQRG10V25";
+                    roundrodheight = Properties.Resources.round_rod_2500;
                     choosenHeight = "Standard";
                     isExtension = "No";
                 }
                 if (combobox == "2170-2400")
                 {
+                    roundrodheight = Properties.Resources.round_rod_2500;
+                    roundrod = "VQRG10V25";
                     choosenHeight = "High";
                     isExtension = "No";
                 }
                 if (combobox == "2390-2990")
                 {
+                    roundrodheight = Properties.Resources.round_rod_3000;
+                    roundrod = "VQRG10V30";
                     choosenHeight = "Standard";
                     isExtension = "Yes";
                 }
                 if (combobox == "2590-3185")
                 {
+                    roundrodheight = Properties.Resources.round_rod_3000;
+                    roundrod = "VQRG10V30";
                     choosenHeight = "High";
                     isExtension = "Yes";
                 }
@@ -163,18 +176,19 @@ namespace WpfApp4.Pages
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-
-                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@extension, 'Extension', '1')";
+                //**********************************************************
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@extension, @extensionadd, '1')";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
+                    byte[] addextension = Encoding.UTF8.GetBytes(Properties.Resources.extension);
                     insertCmd.Parameters.AddWithValue("@extension", extension);
-
+                    insertCmd.Parameters.AddWithValue("@extensionadd", addextension);
                     insertCmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+                MessageBox.Show("Error while inserting extension: " + ex.Message);
             }
             finally
             {
@@ -276,7 +290,8 @@ namespace WpfApp4.Pages
             if (choosenSeries != "881GL" && seriescombobox.SelectedItem != null && choosenHeight != "Low")
             {
                 AddLock.IsEnabled = true;
-            }else if(choosenHeight == "Low")
+            }
+            else if (choosenHeight == "Low")
             {
                 AddLock.IsEnabled = false;
                 AddLock.IsChecked = false;
@@ -365,16 +380,17 @@ namespace WpfApp4.Pages
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
 
-                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VMZ852ZR35', 'Additional deadbolt lock', '1')";
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VMZ852ZR35', @addlockinsert, '1')";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
-
+                    byte[] addlockinsert = Encoding.UTF8.GetBytes(Properties.Resources.add_lock_insert);
+                    insertCmd.Parameters.AddWithValue("@addlockinsert", addlockinsert);
                     insertCmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+                MessageBox.Show("Error while inserting addlock: " + ex.Message);
             }
             finally
             {
@@ -394,16 +410,18 @@ namespace WpfApp4.Pages
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
 
-                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@chooseneopener, 'E-Opener', '1')";
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@chooseneopener, @adde_opener, '1')";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
+                    byte[] adde_opener = Encoding.UTF8.GetBytes(Properties.Resources.adde_opener);
                     insertCmd.Parameters.AddWithValue("@chooseneopener", chooseneopener);
+                    insertCmd.Parameters.AddWithValue("@adde_opener", adde_opener);
                     insertCmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+                MessageBox.Show("Error while inserting eopener: " + ex.Message);
             }
             finally
             {
@@ -413,6 +431,85 @@ namespace WpfApp4.Pages
                 }
             }
         }
+        private void addRoundrod()
+        {
+            string connectionString = Properties.Settings.Default.connection;
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES (@roundrod, @roundrodheight, '1')";
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    byte[] addroundrodheight = Encoding.UTF8.GetBytes(roundrodheight);
+                    insertCmd.Parameters.AddWithValue("@roundrod", roundrod);
+                    insertCmd.Parameters.AddWithValue("roundrodheight", addroundrodheight);
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting round rod into final table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRS57369', @rodguide, '2')";
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    byte[] addrodguide = Encoding.UTF8.GetBytes(Properties.Resources.rod_guide);
+                    insertCmd.Parameters.AddWithValue("@rodguide", addrodguide);
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting roud guide into final table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                string insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRRV56568X', @threshold_strike_plate, '1')";
+                using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                {
+                    byte[] addthreshold = Encoding.UTF8.GetBytes(Properties.Resources.threshold_strike_plate);
+                    insertCmd.Parameters.AddWithValue("@threshold_strike_plate", addthreshold);
+                    insertCmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while inserting threshold strike plate into final table: " + ex.Message);
+            }
+            finally
+            {
+                if (connection != null && connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -431,6 +528,11 @@ namespace WpfApp4.Pages
                 {
                     GetExtensionValue();
                     AddExtension();
+                }
+                if (Properties.Settings.Default.leaf == "2leaf")
+                {
+                    addRoundrod();
+
                 }
                 string connectionString = Properties.Settings.Default.connection;
 
@@ -496,7 +598,9 @@ namespace WpfApp4.Pages
         }
         private void Eopener_Checked(object sender, RoutedEventArgs e)
         {
+            
             eopeneroptions.Visibility = Visibility.Visible;
+            
         }
         private void Eopener_Unchecked(object sender, RoutedEventArgs e)
         {

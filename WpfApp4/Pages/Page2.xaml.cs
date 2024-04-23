@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -18,10 +19,10 @@ namespace WpfApp4.Pages
         private MySqlConnection connection;
         private MySqlCommand cmd;
         string choosenSystem = "";
-        public string choosenleaf {  get; set; }
-        
+        public string choosenleaf { get; set; }
+        string strikePlate;
         private List<string> systems;
-        
+
         public Page2()
         {
             InitializeComponent();
@@ -84,7 +85,7 @@ namespace WpfApp4.Pages
                     if (result != null)
                     {
                         // Assuming the Strike_Plate is of string type, you can adjust accordingly
-                        string strikePlate = result.ToString();
+                        strikePlate = result.ToString();
 
                         // Insert into choosenplate table
                         string insertQuery = "INSERT INTO choosenplate (Strike_Plate) VALUES (@strikePlate)";
@@ -190,30 +191,65 @@ namespace WpfApp4.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
+            string insertQuery;
             GetPlateForStriker(choosenSystem);
             GetAndInsertLocks(choosenSystem);
-            if(_1leaf.IsChecked == true)
+            if (_1leaf.IsChecked == true)
             {
                 Properties.Settings.Default.leaf = "1leaf";
             }
             else
             {
                 Properties.Settings.Default.leaf = "2leaf";
+                if (strikePlate == "F24")
+                {
+                    insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VBK345K24R35N', @espagnolette_bolt, '1')";
+                }
+                else
+                {
+                    insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VBK345K24I35N', @espagnolette_bolt, '1')";
+                }
+                string connectionString = Properties.Settings.Default.connection;
+                try
+                {
+                    connection = new MySqlConnection(connectionString);
+                    connection.Open();
+
+
+                    using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
+                    {
+                        byte[] espagnoletteBoltBytes = Encoding.UTF8.GetBytes(Properties.Resources.espagnolette_bolt);
+
+                        // Pass the byte array as a parameter value
+                        insertCmd.Parameters.AddWithValue("@espagnolette_bolt", espagnoletteBoltBytes);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while inserting data into choosenmainstrikers table: " + ex.Message);
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
             }
-            
+
             NavigationService.Navigate(new Page3());
         }
 
         private void _2leaf_Checked(object sender, RoutedEventArgs e)
         {
-          
+
             _1leaf.IsChecked = false;
         }
 
         private void _1leaf_Checked(object sender, RoutedEventArgs e)
         {
-            
+
             _2leaf.IsChecked = false;
         }
 
@@ -221,22 +257,23 @@ namespace WpfApp4.Pages
         {
 
             choosenSystem = systemscombobox.SelectedItem.ToString();
-            if(plateforLock == "U22x5")
+            if (choosenSystem == "REYNAERS (SL38 HI)" | choosenSystem == "COR 70 Industrial - system cieply 70mm.")
             {
-               
+                _2leaf.IsEnabled = false;
                 _2leaf.IsChecked = false;
+                _1leaf.IsChecked = true;
             }
             else
             {
                 _2leaf.IsEnabled = true;
-               
+
             }
             nextbtn.IsEnabled = true;
         }
 
         private void _1leaf_Unchecked(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

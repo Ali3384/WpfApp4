@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp4.Pages"
+      xmlns:p = "clr-namespace:WpfApp4.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page3">
@@ -24,28 +25,28 @@
         </Grid.Background>
 
 
-        <Button Name ="NextStepBtn" IsEnabled="False" Content="Next Step" HorizontalAlignment="Left" Margin="326,395,0,0" VerticalAlignment="Top" Height="32" Width="103" Click="Button_Click" FontFamily="Arial"/>
-        <Label Content="Choose Lock Height" HorizontalAlignment="Center" Margin="0,66,0,0" VerticalAlignment="Top" Width="408" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
-        <Label Content="Lock Series and Type, Lock Side" HorizontalAlignment="Center" Margin="0,110,0,0" VerticalAlignment="Top" Width="570" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
-        <ComboBox Name="heightcombobox" HorizontalAlignment="Left" Margin="98,204,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Foreground="Black" FontFamily="Arial">
+        <Button Name ="NextStepBtn" IsEnabled="False" Content="{x:Static p:Resources.next_step_btn}" HorizontalAlignment="Left" Margin="626,395,0,0" VerticalAlignment="Top" Height="32" Width="103" Click="Button_Click" FontFamily="Arial"/>
+        <Label Content="{x:Static p:Resources.choose_lock_height}" HorizontalAlignment="Left" Margin="40,102,0,0" VerticalAlignment="Top" Width="573" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
+        <Label Content="{x:Static p:Resources.lock_series_type_side}" HorizontalAlignment="Left" Margin="43,146,0,0" VerticalAlignment="Top" Width="570" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
+        <ComboBox Name="heightcombobox" HorizontalAlignment="Left" Margin="26,240,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Foreground="Black" FontFamily="Arial">
             <ComboBoxItem Content="1670-1870"/>
             <ComboBoxItem Content="1870-2170"/>
             <ComboBoxItem Content="2170-2400"/>
             <ComboBoxItem Content="2390-2990"/>
             <ComboBoxItem Content="2590-3185"/>
         </ComboBox>
-        <Label Content="Height:" HorizontalAlignment="Left" Margin="98,178,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <ComboBox x:Name="seriescombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,254,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="seriescombobox_SelectionChanged" FontFamily="Arial" />
-        <Label Content="Lock Series:" HorizontalAlignment="Left" Margin="98,228,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <ComboBox x:Name="typecombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,304,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="typecombobox_SelectionChanged" FontFamily="Arial"/>
-        <Label Content="Type:" HorizontalAlignment="Left" Margin="98,278,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <ComboBox x:Name="functioncombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="98,354,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="functioncombobox_SelectionChanged" FontFamily="Arial"/>
-        <Label Content="Function:" HorizontalAlignment="Left" Margin="98,328,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <Label Content="Additions:" HorizontalAlignment="Left" Margin="274,178,0,0" VerticalAlignment="Top" Width="78" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <CheckBox Name ="AddLock" IsEnabled="False" Content="Additional Lock" HorizontalAlignment="Left" Margin="274,211,0,0" VerticalAlignment="Top" Background="#FF000306" Foreground="White" Checked="AddLock_Checked" Unchecked="AddLock_Unchecked" FontFamily="Arial"/>
-        <CheckBox Name="Eopener" Content="E-Opener" HorizontalAlignment="Left" Margin="393,211,0,0" VerticalAlignment="Top" Background="#FF000306" Foreground="White" Checked="Eopener_Checked" IsChecked="False" Unchecked="Eopener_Unchecked" FontFamily="Arial"/>
+        <Label Content="{x:Static p:Resources.height}" HorizontalAlignment="Left" Margin="26,0,0,0" VerticalAlignment="Center" Width="99" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="seriescombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="26,290,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="seriescombobox_SelectionChanged" FontFamily="Arial" />
+        <Label Content="{x:Static p:Resources.series}" HorizontalAlignment="Left" Margin="26,264,0,0" VerticalAlignment="Top" Width="120" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="typecombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="26,340,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="typecombobox_SelectionChanged" FontFamily="Arial"/>
+        <Label Content="{x:Static p:Resources.type}" HorizontalAlignment="Left" Margin="26,314,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <ComboBox x:Name="functioncombobox" IsEnabled="False" HorizontalAlignment="Left" Margin="26,390,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="functioncombobox_SelectionChanged" FontFamily="Arial"/>
+        <Label Content="{x:Static p:Resources.function}" HorizontalAlignment="Left" Margin="26,364,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <Label Content="{x:Static p:Resources.additions}" HorizontalAlignment="Left" Margin="250,0,0,0" VerticalAlignment="Center" Width="78" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        <CheckBox Name ="AddLock" IsEnabled="False" Content="{x:Static p:Resources.addlock}" HorizontalAlignment="Left" Margin="250,247,0,0" VerticalAlignment="Top" Background="#FF000306" Foreground="White" Checked="AddLock_Checked" Unchecked="AddLock_Unchecked" FontFamily="Arial"/>
+        <CheckBox Name="Eopener" Content="{x:Static p:Resources.e_opener}" HorizontalAlignment="Left" Margin="369,247,0,0" VerticalAlignment="Top" Background="#FF000306" Foreground="White" Checked="Eopener_Checked" IsChecked="False" Unchecked="Eopener_Unchecked" FontFamily="Arial"/>
 
-        <GroupBox Visibility="Hidden" Header="E-Opener Options" Name="eopeneroptions" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="274,240,0,0" Height="134" Width="177" FontWeight="Bold" Background="{x:Null}" FontFamily="Arial">
+        <GroupBox Visibility="Hidden" Header="{x:Static p:Resources.e_opener_options}" Name="eopeneroptions" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,276,0,0" Height="134" Width="177" FontWeight="Bold" Background="{x:Null}" FontFamily="Arial">
             <GroupBox.Template>
                 <ControlTemplate TargetType="GroupBox">
                     <Border CornerRadius="6" BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
@@ -58,10 +59,10 @@
                                 <ContentPresenter ContentSource="Header"/>
                             </Border>
                             <StackPanel Grid.Row="1" Margin="5">
-                                <RadioButton Content="E-Opener 10-24V (Standard)" FontSize="10" Checked="RadioButton_Checked" Foreground="#FFFDFAFA" Background="#FF080808" FontStyle="Italic"/>
-                                <RadioButton Content="Mechanical E-opener" FontSize="10" Checked="RadioButton_Checked_1" Foreground="White" Background="#FF080808" FontStyle="Italic"/>
-                                <RadioButton Content="Reversive E-opener 24V" FontSize="10" Checked="RadioButton_Checked_2" Foreground="White" Background="#FF080808" FontStyle="Italic"/>
-                                <RadioButton Content="Reversive E-opener 12V" FontSize="10" Checked="RadioButton_Checked_3" Foreground="White" Background="#FF080808" FontStyle="Italic"/>
+                                <RadioButton Content="{x:Static p:Resources.e_opener_standard}" FontSize="10" Checked="RadioButton_Checked" Foreground="#FFFDFAFA" Background="#FF080808" FontStyle="Italic"/>
+                                <RadioButton Content="{x:Static p:Resources.e_opener_mechanical}" FontSize="10" Checked="RadioButton_Checked_1" Foreground="White" Background="#FF080808" FontStyle="Italic"/>
+                                <RadioButton Content="{x:Static p:Resources.e_opener_reversive_24v}" FontSize="10" Checked="RadioButton_Checked_2" Foreground="White" Background="#FF080808" FontStyle="Italic"/>
+                                <RadioButton Content="{x:Static p:Resources.e_opener}" FontSize="10" Checked="RadioButton_Checked_3" Foreground="White" Background="#FF080808" FontStyle="Italic"/>
                             </StackPanel>
                         </Grid>
                     </Border>

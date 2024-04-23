@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfApp4.Pages"
+      xmlns:p = "clr-namespace:WpfApp4.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FinalPage">
@@ -23,11 +24,15 @@
             <ImageBrush ImageSource="/Images/background.png" Stretch="UniformToFill"/>
         </Grid.Background>
 
+       
 
-        <Label Content="Result for system:" HorizontalAlignment="Left" Margin="196,19,0,0" VerticalAlignment="Top" Width="488" Height="67" FontFamily="Arial" FontSize="30" BorderBrush="Black" FontWeight="UltraBold" Foreground="White"/>
-        <Button x:Name="gobackhome" Content="Start Again" Margin="317,390,317,28" Click="butsettings_Click"/>
-        <DataGrid Name="finaltable"  d:ItemsSource="{Binding }" Margin="40,106,62,76" IsReadOnly="True"/>
-        <Label Name="systemlabel" Content="System" HorizontalAlignment="Left" Margin="195,54,0,0" VerticalAlignment="Top" Width="473" Height="47" FontFamily="Arial" FontSize="26" BorderBrush="Black" Foreground="White" FontStyle="Italic" FontWeight="Bold" Background="Transparent"/>
+        <Label Content="{x:Static p:Resources.result_for_system}" HorizontalAlignment="Left" Margin="196,19,0,0" VerticalAlignment="Top" Width="488" Height="67" FontFamily="Arial" FontSize="30" BorderBrush="Black" FontWeight="UltraBold" Foreground="White"/>
+        <Button x:Name="gobackhome" Content="{x:Static p:Resources.start_again_btn}" Margin="41,390,593,28" Click="butsettings_Click"/>
+        <DataGrid Name="finaltable"  d:ItemsSource="{Binding }" Margin="40,106,62,76" IsReadOnly="True" Background="White"/>
+        <Label Name="systemlabel" Content="System" HorizontalAlignment="Left" Margin="195,54,0,0" VerticalAlignment="Top" Width="422" Height="47" FontFamily="Arial" FontSize="26" BorderBrush="Black" Foreground="White" FontStyle="Italic" FontWeight="Bold" Background="Transparent"/>
+        <Button x:Name="export_pdf" Content="{x:Static p:Resources.exportpdf}" Margin="237,390,360,28" Click="export_pdf_Click" />
+        <Button x:Name="export_pdf_Копировать" Content="{x:Static p:Resources.changeqty}" Margin="472,390,62,28" Click="export_pdf_Копировать_Click" />
+
     </Grid>
 
 </Page>
