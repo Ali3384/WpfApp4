@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp4", "WpfApp4\WpfApp4.csproj", "{0DCC5D05-9279-42A4-8A6D-6E84590FED9B}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FUHR Configurator", "FUHR Configurator\FUHR Configurator.vdproj", "{6A097D92-EC1D-47A7-9433-F596AF8BBA82}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FUHR Configurator", "FUHR Configurator\FUHR Configurator.vdproj", "{8C829CC3-03BD-4E52-81AB-FA20C4059182}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{0DCC5D05-9279-42A4-8A6D-6E84590FED9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DCC5D05-9279-42A4-8A6D-6E84590FED9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DCC5D05-9279-42A4-8A6D-6E84590FED9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A097D92-EC1D-47A7-9433-F596AF8BBA82}.Debug|Any CPU.ActiveCfg = Debug
-		{6A097D92-EC1D-47A7-9433-F596AF8BBA82}.Release|Any CPU.ActiveCfg = Release
+		{8C829CC3-03BD-4E52-81AB-FA20C4059182}.Debug|Any CPU.ActiveCfg = Debug
+		{8C829CC3-03BD-4E52-81AB-FA20C4059182}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

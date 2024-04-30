@@ -237,6 +237,9 @@
   <data name="one_piece_or_single" xml:space="preserve">
     <value>One Piece or Single:</value>
   </data>
+  <data name="ordernumber" xml:space="preserve">
+    <value>Enter Order Number:</value>
+  </data>
   <data name="result_for_system" xml:space="preserve">
     <value>Result for system:</value>
   </data>

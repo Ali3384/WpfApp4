@@ -14,6 +14,10 @@ using System.Xml.Linq;
 using System.IO;
 using iText.IO.Image;
 using System.Windows.Media;
+using System.Drawing;
+using iText.IO.Font;
+using iText.Kernel.Font;
+using Color = System.Windows.Media.Color;
 
 namespace WpfApp4.Pages
 {
@@ -34,6 +38,7 @@ namespace WpfApp4.Pages
         public int qtystrikers;
         public bool check;
         string extension;
+        string orderNumber = "";
         DataTable dataTable = new DataTable();
         public FinalPage()
         {
@@ -433,10 +438,18 @@ namespace WpfApp4.Pages
 
         private void export_pdf_Click(object sender, RoutedEventArgs e)
         {
+            
             try
             {
-                // Create a SaveFileDialog to prompt the user for the file location
-                Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+                OrderNumberDialog dialog = new OrderNumberDialog();
+                bool? result = dialog.ShowDialog();
+
+                if (result == true)
+                {
+                    orderNumber = dialog.OrderNumber;
+                }
+                    // Create a SaveFileDialog to prompt the user for the file location
+                    Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
                 saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
                 saveFileDialog.FilterIndex = 2;
                 saveFileDialog.RestoreDirectory = true;
@@ -445,6 +458,9 @@ namespace WpfApp4.Pages
                 {
                     string filePath = saveFileDialog.FileName;
 
+                    // Set font name
+                    byte[] fontBytes = Properties.Resources.font;
+                    PdfFont font = PdfFontFactory.CreateFont(fontBytes, PdfEncodings.IDENTITY_H);
                     // Create a PdfWriter
                     PdfWriter writer = new PdfWriter(filePath);
 
@@ -454,9 +470,8 @@ namespace WpfApp4.Pages
                     // Create a Document
                     Document document = new Document(pdf);
 
-                    // Add header
-                    
 
+                    document.SetFont(font);
                     // Add header image
 
                     using (MemoryStream ms = new MemoryStream())
@@ -474,13 +489,13 @@ namespace WpfApp4.Pages
                         document.Add(headerImage);
                     }
                     iText.Layout.Element.Paragraph header = new iText.Layout.Element.Paragraph("Date: " + DateTime.Now.ToString("yyyy-MM-dd") + "\n" +
-                                                        "Order for: FUHR Polska\n\n")
+                                                        "Order No: " + orderNumber + " for FUHR Polska\n\n")
                         .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                         .SetFontSize(16);
                     document.Add(header);
                     // Create table
                     iText.Layout.Element.Table pdfTable = new iText.Layout.Element.Table(dataTable.Columns.Count);
-
+                    pdfTable.SetFont(font);
                     // Add headers
                     foreach (DataColumn column in dataTable.Columns)
                     {
@@ -501,7 +516,6 @@ namespace WpfApp4.Pages
                     // Close the Document
                     document.Close();
 
-                    MessageBox.Show("PDF file exported successfully!");
                 }
             }
             catch (Exception ex)

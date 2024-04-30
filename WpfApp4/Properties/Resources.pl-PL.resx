@@ -237,6 +237,9 @@
   <data name="one_piece_or_single" xml:space="preserve">
     <value>Listwa czy pojedyncze</value>
   </data>
+  <data name="ordernumber" xml:space="preserve">
+    <value>Wpisz numer zamowienia:</value>
+  </data>
   <data name="result_for_system" xml:space="preserve">
     <value>Wyniki dla systemu:</value>
   </data>

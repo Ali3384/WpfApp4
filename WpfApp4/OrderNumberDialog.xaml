@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp4.OrderNumberDialog"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p = "clr-namespace:WpfApp4.Properties"
+        Title="Order Number" Height="166" Width="300" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,0,10">
+        <StackPanel Margin="10">
+            <TextBlock Text="{x:Static p:Resources.ordernumber}"/>
+            <TextBox x:Name="txtOrderNumber"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,0,0">
+                <Button Content="OK" Width="75" Margin="5" Click="OK_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

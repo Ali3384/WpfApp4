@@ -322,6 +322,16 @@ namespace WpfApp4.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] font {
+            get {
+                object obj = ResourceManager.GetObject("font", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на FUHR lock systems..
         /// </summary>
         public static string fuhr_lock_systems {
@@ -427,6 +437,15 @@ namespace WpfApp4.Properties {
         public static string onepiecestrikeradd {
             get {
                 return ResourceManager.GetString("onepiecestrikeradd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Enter Order Number:.
+        /// </summary>
+        public static string ordernumber {
+            get {
+                return ResourceManager.GetString("ordernumber", resourceCulture);
             }
         }
         

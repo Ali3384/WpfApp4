@@ -204,6 +204,10 @@
   <data name="e_opener_standard" xml:space="preserve">
     <value>E-Opener 10-24V (Standard)</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="font" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Controls\font.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="fuhr_lock_systems" xml:space="preserve">
     <value>FUHR lock systems.</value>
   </data>
@@ -213,7 +217,6 @@
   <data name="getting_started" xml:space="preserve">
     <value>Getting Started</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="header" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\header.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -240,6 +243,9 @@
   </data>
   <data name="one_piece_or_single" xml:space="preserve">
     <value>One Piece or Single:</value>
+  </data>
+  <data name="ordernumber" xml:space="preserve">
+    <value>Enter Order Number:</value>
   </data>
   <data name="result_for_system" xml:space="preserve">
     <value>Result for system:</value>

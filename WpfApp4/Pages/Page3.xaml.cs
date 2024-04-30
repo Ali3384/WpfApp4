@@ -360,7 +360,7 @@ namespace WpfApp4.Pages
 
         private void functioncombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
             if (functioncombobox.SelectedItem != null)
             {
                 NextStepBtn.IsEnabled = true;
@@ -370,6 +370,15 @@ namespace WpfApp4.Pages
             else
             {
                 NextStepBtn.IsEnabled = false;
+            }
+            if(choosenFunction == "Day_Night")
+            {
+                Eopener.IsEnabled = true;
+            }
+            else
+            {
+                Eopener.IsChecked = false;
+                Eopener.IsEnabled = false;
             }
         }
         private void addAdditionalLock()
