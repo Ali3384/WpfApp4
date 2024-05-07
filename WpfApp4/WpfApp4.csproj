@@ -236,6 +236,9 @@
     <Compile Include="OrderNumberDialog.xaml.cs">
       <DependentUpon>OrderNumberDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Alumin_Panic\Page2_alu_panic.xaml.cs">
+      <DependentUpon>Page2_alu_panic.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources - Копировать.Designer.cs">
       <DependentUpon>Resources.en-US.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -269,6 +272,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OrderNumberDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Alumin_Panic\Page2_alu_panic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -378,7 +385,10 @@
   <ItemGroup>
     <Resource Include="FUHR_Logo.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\arrow.png" />
+    <Resource Include="Images\failed.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\gradient.png" />
   </ItemGroup>

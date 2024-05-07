@@ -21,14 +21,12 @@ namespace WpfApp4.Pages
         string port;
         string uid;
         string pwd;
-        string database;
         string oldconnection;
         string newconnection;
         string serverold = "";
         string portold = "";
         string uidold = "";
         string pwdold = "";
-        string databaseold = "";
         string selectedlanguage;
         public SettingsPage()
         {
@@ -63,7 +61,6 @@ namespace WpfApp4.Pages
             connectionStringBuilder.Append("port=").Append(porttxt.Text).Append(";");
             connectionStringBuilder.Append("uid=").Append(useridtxt.Text).Append(";");
             connectionStringBuilder.Append("pwd=").Append(passwordtxt.Text).Append(";");
-            connectionStringBuilder.Append("database=").Append(databasetxt.Text).Append(";");
             connectionStringBuilder.Append("charset = utf8mb4;");
 
             newconnection = connectionStringBuilder.ToString();
@@ -111,9 +108,6 @@ namespace WpfApp4.Pages
                         case "pwd":
                             pwdold = value;
                             break;
-                        case "database":
-                            databaseold = value;
-                            break;
                         default:
                             // Handle unknown keys if necessary
                             break;
@@ -127,7 +121,6 @@ namespace WpfApp4.Pages
             porttxt.Text = portold;
             useridtxt.Text = uidold;
             passwordtxt.Text = pwdold;
-            databasetxt.Text = databaseold;
         }
         
 

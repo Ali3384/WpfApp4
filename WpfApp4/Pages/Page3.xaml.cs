@@ -43,7 +43,7 @@ namespace WpfApp4.Pages
         private void GetFirstLockShape()
         {
 
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             string query = "SELECT DISTINCT Lock_Shape FROM choosenlocks";
 
             try
@@ -130,7 +130,7 @@ namespace WpfApp4.Pages
 
         private void GetExtensionValue()
         {
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             string query = "SELECT Item_Code FROM extensions WHERE Extension_Plate = @lockShape AND Extension_Type = @Type";
 
             try
@@ -171,7 +171,7 @@ namespace WpfApp4.Pages
         }
         private void AddExtension()
         {
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -201,7 +201,7 @@ namespace WpfApp4.Pages
         private void PopulateLockSeriesComboBox()
         {
 
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             string query = "";
             if (isExtension == "Yes")
             {
@@ -241,7 +241,7 @@ namespace WpfApp4.Pages
 
         private void PopulateLockTypeComboBox()
         {
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             string query = "SELECT DISTINCT Lock_Type FROM choosenlocks WHERE Lock_Series = @Series";
 
             try
@@ -302,10 +302,10 @@ namespace WpfApp4.Pages
                 AddLock.IsChecked = false;
             }
         }
-        private void PopulateFunctionComboBox()
+        private void PopulateFunctionComboBox() 
         {
             // Connection string
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
             // SQL query to fetch distinct functions based on selected height, series, and type
             string query = "SELECT DISTINCT Lock_Function FROM choosenlocks " +
@@ -383,7 +383,7 @@ namespace WpfApp4.Pages
         }
         private void addAdditionalLock()
         {
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -413,7 +413,7 @@ namespace WpfApp4.Pages
         private void addEopener()
         {
             eopener = "Yes";
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -442,7 +442,7 @@ namespace WpfApp4.Pages
         }
         private void addRoundrod()
         {
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -543,7 +543,7 @@ namespace WpfApp4.Pages
                     addRoundrod();
 
                 }
-                string connectionString = Properties.Settings.Default.connection;
+                string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
 
                 string deleteQuery = "DELETE FROM choosenlocks " +

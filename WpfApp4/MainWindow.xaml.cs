@@ -32,7 +32,7 @@ namespace WpfApp4
         }
         private void closing()
         {
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
             // Truncate tables
             TruncateTable(connectionString, "choosenlocks");
@@ -80,16 +80,12 @@ namespace WpfApp4
 
         private void closebtn_MouseEnter(object sender, MouseEventArgs e)
         {
-            SolidColorBrush blackBrush = new SolidColorBrush();
-            blackBrush.Color = Colors.DarkRed;
-            closebtn.Fill = blackBrush;
+            
         }
 
         private void closebtn_MouseLeave(object sender, MouseEventArgs e)
         {
-            SolidColorBrush redBrush = new SolidColorBrush();
-            redBrush.Color = Colors.Red;
-            closebtn.Fill = redBrush;
+            
         }
     }
 }

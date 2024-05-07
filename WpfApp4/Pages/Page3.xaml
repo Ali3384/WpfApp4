@@ -70,7 +70,35 @@
             </GroupBox.Template>
         </GroupBox>
 
-
+        <Rectangle x:Name="backbtn" HorizontalAlignment="Left" Height="23" Margin="737,10,0,0" VerticalAlignment="Top" Width="23" Cursor="Hand">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="Transparent"/>
+                <!-- Initial border color -->
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Images/arrow.png" Stretch="Fill"/>
+            </Rectangle.Fill>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Rectangle.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+To="Red" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Rectangle.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+To="Transparent" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
 
 
     </Grid>

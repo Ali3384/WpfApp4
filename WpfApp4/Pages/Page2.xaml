@@ -21,27 +21,59 @@
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
-    <Grid>
+    <Grid Height="450" Width="800">
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background.png"/>
         </Grid.Background>
-        <Rectangle RadiusX="10" RadiusY="10" Margin="26,239,718,153">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="..\Images\1door.png" Stretch="UniformToFill"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle RadiusX="10" RadiusY="10" Margin="95,239,649,153">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="/Images/2door.png" Stretch="UniformToFill"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Button Content="{x:Static p:Resources.next_step_btn}" IsEnabled="False"  Name="nextbtn" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="102" Click="Button_Click"/>
+        <Grid>
+            <Rectangle x:Name="firstRect" RadiusX="10" RadiusY="10" Margin="26,239,719,153">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/1door.png" Stretch="UniformToFill"/>
+                </Rectangle.Fill>
+                
+            </Rectangle>
+            <Rectangle x:Name="secondRect" RadiusX="10" RadiusY="10" Margin="95,239,650,153">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/2door.png" Stretch="UniformToFill"/>
+                </Rectangle.Fill>
+                
+            </Rectangle>
+            <Button Content="{x:Static p:Resources.next_step_btn}" IsEnabled="False"  Name="nextbtn" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="102" Click="Button_Click"/>
         <Label Content="{x:Static p:Resources.choose_leaf}" HorizontalAlignment="Left" Margin="124,90,0,0" VerticalAlignment="Top" Width="569" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
         <RadioButton x:Name="_1leaf" Content="" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" Checked="_1leaf_Checked" Background="#FF00070C" Unchecked="_1leaf_Unchecked"/>
         <RadioButton x:Name="_2leaf" Content="" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Center" Checked="_2leaf_Checked" Background="#FF00070C"/>
         <Label Content="{x:Static p:Resources.and_system}" HorizontalAlignment="Left" Margin="124,134,0,0" VerticalAlignment="Top" Width="569" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
         <ComboBox Name="systemscombobox" HorizontalAlignment="Left" Margin="26,368,0,0" VerticalAlignment="Top" Width="110" SelectionChanged="ComboBox_SelectionChanged" Foreground="#FF0C0000"/>
         <Label Content="{x:Static p:Resources.system}" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-
+            <Rectangle x:Name="backbtn" HorizontalAlignment="Left" Height="23" Margin="737,10,0,0" VerticalAlignment="Top" Width="23" Cursor="Hand">
+                <Rectangle.Stroke>
+                    <SolidColorBrush Color="Transparent"/>
+                    <!-- Initial border color -->
+                </Rectangle.Stroke>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/arrow.png" Stretch="Fill"/>
+                </Rectangle.Fill>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Rectangle.MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+To="Red" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Rectangle.MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation
+Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+To="Transparent" Duration="0:0:0.2"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+        </Grid>
     </Grid>
 </Page>

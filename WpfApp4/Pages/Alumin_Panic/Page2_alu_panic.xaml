@@ -1,0 +1,50 @@
+﻿<Page x:Class="WpfApp4.Pages.Alumin_Panic.Page2_alu_panic"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp4.Pages"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mde="https://spiegelp.github.io/MaterialDesignExtensions/winfx/xaml"
+      xmlns:p = "clr-namespace:WpfApp4.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page2_alu_panic">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation From="0" To="1" Duration="0:0:0:1" Storyboard.TargetProperty="Opacity">
+
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+    <Grid Height="450" Width="800">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background.png"/>
+        </Grid.Background>
+        <Grid>
+            <Rectangle x:Name="firstRect" RadiusX="10" RadiusY="10" Margin="26,239,719,153">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/1door.png" Stretch="UniformToFill"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <Rectangle x:Name="secondRect" RadiusX="10" RadiusY="10" Margin="95,239,650,153">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/2door.png" Stretch="UniformToFill"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+            <Button Content="{x:Static p:Resources.next_step_btn}" IsEnabled="False"  Name="nextbtn" HorizontalAlignment="Left" Margin="529,344,0,0" VerticalAlignment="Top" Height="32" Width="102" Click="Button_Click"/>
+            <Label Content="{x:Static p:Resources.choose_leaf}" HorizontalAlignment="Left" Margin="124,90,0,0" VerticalAlignment="Top" Width="569" Height="50" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White"/>
+            <RadioButton x:Name="_1leaf" Content="" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Center" Checked="_1leaf_Checked" Background="#FF00070C" Unchecked="_1leaf_Unchecked"/>
+            <RadioButton x:Name="_2leaf" Content="" HorizontalAlignment="Left" Margin="114,0,0,0" VerticalAlignment="Center" Checked="_2leaf_Checked" Background="#FF00070C"/>
+            <Label Content="{x:Static p:Resources.and_system}" HorizontalAlignment="Left" Margin="124,134,0,0" VerticalAlignment="Top" Width="569" Height="53" FontSize="36" FontFamily="Arial" FontWeight="Bold" Foreground="White" RenderTransformOrigin="0.502,0.957"/>
+            <ComboBox Name="systemscombobox" HorizontalAlignment="Left" Margin="26,368,0,0" VerticalAlignment="Top" Width="110" SelectionChanged="ComboBox_SelectionChanged" Foreground="#FF0C0000"/>
+            <Label Content="{x:Static p:Resources.system}" HorizontalAlignment="Left" Margin="26,342,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
+        </Grid>
+    </Grid>
+</Page>

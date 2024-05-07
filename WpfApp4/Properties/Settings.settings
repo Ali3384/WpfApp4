@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="connection" Type="System.String" Scope="User">
-      <Value Profile="(Default)">server=localhost;port=3306;uid=root;pwd=root;database=dobory;</Value>
+      <Value Profile="(Default)">server=localhost;port=3306;uid=root;pwd=root;</Value>
     </Setting>
     <Setting Name="leaf" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

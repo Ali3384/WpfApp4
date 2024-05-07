@@ -30,7 +30,7 @@ namespace WpfApp4.Pages
         bool isconnection = false;
         string side;
         public string onepiece { get; set; }
-        string connectionString = Properties.Settings.Default.connection;
+        string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
         string choosenLock;
         string choosenOnepieceStriker;
         string choosenMainStriker;

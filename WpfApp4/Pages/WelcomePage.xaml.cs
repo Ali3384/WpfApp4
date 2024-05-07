@@ -21,7 +21,7 @@ namespace WpfApp4.Pages
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.connection))
+                using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default.connection + "database=alu_standard;"))
                 {
                     connection.Open();
                     isconnection = true;
@@ -38,7 +38,7 @@ namespace WpfApp4.Pages
             checkConnection();
             if (isconnection)
             {
-                string connectionString = Properties.Settings.Default.connection;
+                string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
                 // Truncate tables
                 TruncateTable(connectionString, "choosenlocks");

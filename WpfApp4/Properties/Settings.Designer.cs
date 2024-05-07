@@ -25,7 +25,7 @@ namespace WpfApp4.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;port=3306;uid=root;pwd=root;database=dobory;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;port=3306;uid=root;pwd=root;")]
         public string connection {
             get {
                 return ((string)(this["connection"]));

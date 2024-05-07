@@ -16,7 +16,37 @@
                 <ImageBrush ImageSource="/Images/FUHR_Logo.jpg" Stretch="UniformToFill"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Ellipse x:Name="closebtn" Fill="red" HorizontalAlignment="Left" Height="23" Margin="767,10,0,0" VerticalAlignment="Top" Width="23" MouseLeftButtonDown="closeApp" ToolTip="Close" Cursor="" MouseEnter="closebtn_MouseEnter" MouseLeave="closebtn_MouseLeave"/>
+
+        <Rectangle x:Name="closebtn" HorizontalAlignment="Left" Height="23" Margin="767,10,0,0" VerticalAlignment="Top" Width="23" MouseLeftButtonDown="closeApp" ToolTip="Close" Cursor="Hand" MouseEnter="closebtn_MouseEnter" MouseLeave="closebtn_MouseLeave">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="Transparent"/>
+                <!-- Initial border color -->
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Images/failed.png" Stretch="Fill"/>
+            </Rectangle.Fill>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Rectangle.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                        Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+                        To="Red" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Rectangle.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                        Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+                        To="Transparent" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+        
 
     </Grid>
 

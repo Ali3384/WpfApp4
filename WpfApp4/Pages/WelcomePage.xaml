@@ -36,6 +36,15 @@
             <Label Content="{x:Static p:Resources.configurator_for}" HorizontalAlignment="Left" Margin="40,188,0,0" VerticalAlignment="Top" Width="635" Height="67" FontFamily="Arial" FontSize="48" Foreground="White" BorderBrush="Black" FontWeight="UltraBold"/>
             <Label Content="{x:Static p:Resources.fuhr_lock_systems}" HorizontalAlignment="Left" Margin="40,255,0,0" VerticalAlignment="Top" Width="635" Height="62" FontFamily="Arial" FontSize="48" Foreground="White" BorderBrush="Black" FontWeight="UltraBold"/>
             <Button x:Name="butsettings" Content="{x:Static p:Resources.settings}" Margin="570,349,64,60" Click="butsettings_Click"/>
+            
+
+
+
+
+
+
+
+
         </Grid>
     </Border>
 </Page>

@@ -7,13 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-
-namespace WpfApp4.Pages
+namespace WpfApp4.Pages.Alumin_Panic
 {
     /// <summary>
-    /// Логика взаимодействия для Page2.xaml
+    /// Логика взаимодействия для Page2_alu_panic.xaml
     /// </summary>
-    public partial class Page2 : Page
+    public partial class Page2_alu_panic : Page
     {
         public string plateforLock;
         private MySqlConnection connection;
@@ -22,20 +21,17 @@ namespace WpfApp4.Pages
         public string choosenleaf { get; set; }
         string strikePlate;
         private List<string> systems;
-
-        public Page2()
+        public Page2_alu_panic()
         {
             InitializeComponent();
             _1leaf.IsChecked = true;
             PopulateComboBox();
-
         }
-
         private void PopulateComboBox()
         {
 
-            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
-            string query = "SELECT System_Name FROM systems";
+            string connectionString = Properties.Settings.Default.connection;
+            string query = "SELECT System_Name FROM systems_alu_panic";
 
             try
             {
@@ -67,7 +63,7 @@ namespace WpfApp4.Pages
             }
         }
 
-        string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
+        string connectionString = Properties.Settings.Default.connection;
 
         public void GetPlateForStriker(string chosenSystem)
         {
@@ -77,7 +73,7 @@ namespace WpfApp4.Pages
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
 
-                string plateQuery = "SELECT Strike_Plate FROM systems WHERE System_Name = @chosenSystem";
+                string plateQuery = "SELECT Strike_Plate FROM systems_alu_panic WHERE System_Name = @chosenSystem";
                 using (MySqlCommand plateCmd = new MySqlCommand(plateQuery, connection))
                 {
                     plateCmd.Parameters.AddWithValue("@chosenSystem", chosenSystem); // Use chosenSystem instead of connection
@@ -129,7 +125,7 @@ namespace WpfApp4.Pages
                 connection.Open();
 
                 // Retrieve Lock_Plate from systems table
-                string systemQuery = "SELECT Lock_Plate FROM systems WHERE System_Name = @chosenSystem";
+                string systemQuery = "SELECT Lock_Plate FROM systems_alu_panic WHERE System_Name = @chosenSystem";
                 using (MySqlCommand systemCmd = new MySqlCommand(systemQuery, connection))
                 {
                     systemCmd.Parameters.AddWithValue("@chosenSystem", chosenSystem);
@@ -138,7 +134,7 @@ namespace WpfApp4.Pages
                     if (!string.IsNullOrEmpty(lockPlate))
                     {
                         // Retrieve locks based on Lock_Plate
-                        string locksQuery = "SELECT * FROM locks WHERE Lock_Shape = @lockPlate";
+                        string locksQuery = "SELECT * FROM locks_alu_panic WHERE Lock_Shape = @lockPlate";
                         using (MySqlCommand locksCmd = new MySqlCommand(locksQuery, connection))
                         {
                             locksCmd.Parameters.AddWithValue("@lockPlate", lockPlate);
@@ -172,8 +168,17 @@ namespace WpfApp4.Pages
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
+                string insertQuery;
                 connection.Open();
-                string insertQuery = "INSERT INTO choosenlocks (Lock_Code, Lock_Series, Lock_Shape, Lock_Height, Lock_Type, Lock_Side, Lock_Function, Higher) VALUES (@Lock_Code, @Lock_Series, @Lock_Shape, @Lock_Height, @Lock_Type, @Lock_Side, @Lock_Function, @Higher)";
+                if(Properties.Settings.Default.leaf == "1leaf")
+                {
+                    insertQuery = "INSERT INTO choosenlocks_alu_panic (Lock_Code, Lock_Series, Lock_Shape, Lock_Height, Lock_Type, Lock_Side, Lock_Function, Higher) VALUES (@Lock_Code, @Lock_Series, @Lock_Shape, @Lock_Height, @Lock_Type, @Lock_Side, @Lock_Function, @Higher)";
+                }
+                else
+                {
+
+                }
+                insertQuery = "INSERT INTO choosenlocks_alu_panic (Lock_Code, Lock_Series, Lock_Shape, Lock_Height, Lock_Type, Lock_Side, Lock_Function, Higher) VALUES (@Lock_Code, @Lock_Series, @Lock_Shape, @Lock_Height, @Lock_Type, @Lock_Side, @Lock_Function, @Higher)";
                 using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection))
                 {
                     insertCmd.Parameters.AddWithValue("@Lock_Code", reader["Lock_Code"]);
@@ -209,7 +214,7 @@ namespace WpfApp4.Pages
                 {
                     insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VBK345K24I35N', @espagnolette_bolt, '1')";
                 }
-                string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
+                string connectionString = Properties.Settings.Default.connection;
                 try
                 {
                     connection = new MySqlConnection(connectionString);
@@ -257,7 +262,7 @@ namespace WpfApp4.Pages
         {
 
             choosenSystem = systemscombobox.SelectedItem.ToString();
-            if (choosenSystem == "REYNAERS (SL38 HI)" | choosenSystem == "COR 70 Industrial - system cieply 70mm.")
+            if (choosenSystem.Contains("Aluprof - MB59S") | choosenSystem.Contains("Yawal - PI50N") | choosenSystem.Contains("Reynaers - CS59") | choosenSystem.Contains("Forster - Unico"))
             {
                 _2leaf.IsEnabled = false;
                 _2leaf.IsChecked = false;

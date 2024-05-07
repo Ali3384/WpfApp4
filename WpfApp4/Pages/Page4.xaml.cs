@@ -58,7 +58,7 @@ namespace WpfApp4.Pages
 
 
 
-        string connectionString = Properties.Settings.Default.connection;
+        string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
         public void GetPlateForStriker()
         {
@@ -151,7 +151,7 @@ namespace WpfApp4.Pages
             {
                 addlockstriker = "VRNC48240";
             }
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -219,7 +219,7 @@ namespace WpfApp4.Pages
             {
                 insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRNR58610', @striker_upper, '1')";
             }
-            string connectionString = Properties.Settings.Default.connection;
+            string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
             try
             {
                 connection = new MySqlConnection(connectionString);
@@ -602,7 +602,7 @@ namespace WpfApp4.Pages
             try
             {
                 // Connection string
-                string connectionString = Properties.Settings.Default.connection;
+                string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosenonepiecestrikers " +
@@ -632,7 +632,7 @@ namespace WpfApp4.Pages
             try
             {
                 // Connection string
-                string connectionString = Properties.Settings.Default.connection;
+                string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosencentralstrikers " +
@@ -663,7 +663,7 @@ namespace WpfApp4.Pages
             try
             {
                 // Connection string    
-                string connectionString = Properties.Settings.Default.connection;
+                string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
 
                 // SQL query to delete data from choosenlocks table
                 string deleteQuery = "DELETE FROM choosenmainstrikers " +
@@ -814,7 +814,7 @@ namespace WpfApp4.Pages
                     {
                         insertQuery = "INSERT INTO finaltable (Item_Code, Item_Description, Quantity) VALUES ('VRYR69641', @addlatchslide, '1')";
                     }
-                    string connectionString = Properties.Settings.Default.connection;
+                    string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
                     try
                     {
                         connection = new MySqlConnection(connectionString);
