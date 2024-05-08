@@ -32,34 +32,5 @@
         <Label Content="{x:Static p:Resources.type}" HorizontalAlignment="Left" Margin="26,235,0,0" VerticalAlignment="Top" Width="72" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
         <ComboBox x:Name="onepiececombobox" HorizontalAlignment="Left" Margin="26,210,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="onepiececombobox_SelectionChanged"/>
         <Label Content="{x:Static p:Resources.one_piece_or_single}" HorizontalAlignment="Left" Margin="26,185,0,0" VerticalAlignment="Top" Width="224" Foreground="White" FontWeight="Bold" FontFamily="Arial" FontSize="14"/>
-        <Rectangle x:Name="backbtn" HorizontalAlignment="Left" Height="23" Margin="737,10,0,0" VerticalAlignment="Top" Width="23" Cursor="Hand">
-            <Rectangle.Stroke>
-                <SolidColorBrush Color="Transparent"/>
-                <!-- Initial border color -->
-            </Rectangle.Stroke>
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="/Images/arrow.png" Stretch="Fill"/>
-            </Rectangle.Fill>
-            <Rectangle.Triggers>
-                <EventTrigger RoutedEvent="Rectangle.MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation
-Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
-To="Red" Duration="0:0:0.2"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="Rectangle.MouseLeave">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation
-Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
-To="Transparent" Duration="0:0:0.2"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Rectangle.Triggers>
-        </Rectangle>
     </Grid>
 </Page>

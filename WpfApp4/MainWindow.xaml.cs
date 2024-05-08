@@ -33,6 +33,7 @@ namespace WpfApp4
         private void closing()
         {
             string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
+            string connectionString2 = Properties.Settings.Default.connection + "database=basket;";
 
             // Truncate tables
             TruncateTable(connectionString, "choosenlocks");
@@ -43,6 +44,7 @@ namespace WpfApp4
             TruncateTable(connectionString, "choosencentralstrikers");
             TruncateTable(connectionString, "finaltable");
             TruncateTable(connectionString, "isonepiece");
+            TruncateTable(connectionString2, "basket");
             // Close the window
         }
 

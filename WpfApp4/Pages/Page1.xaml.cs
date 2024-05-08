@@ -74,5 +74,7 @@ namespace WpfApp4.Pages
             choosensolution = (solution.SelectedItem as ComboBoxItem)?.Content.ToString();
             MakeVisibleButton();
         }
+
+       
     }
 }

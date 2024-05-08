@@ -168,7 +168,7 @@ namespace WpfApp4.Pages
             }
         }
 
-        private void InsertLock(MySqlDataReader reader, string connectionString)
+        public void InsertLock(MySqlDataReader reader, string connectionString)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -188,12 +188,18 @@ namespace WpfApp4.Pages
                 }
             }
         }
-
+        public void getandinsert()
+        {
+            GetAndInsertLocks(Properties.Settings.Default.choosensystem);
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string insertQuery;
             GetPlateForStriker(choosenSystem);
             GetAndInsertLocks(choosenSystem);
+            Properties.Settings.Default.choosensystem = choosenSystem;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Upgrade();
             if (_1leaf.IsChecked == true)
             {
                 Properties.Settings.Default.leaf = "1leaf";
@@ -255,7 +261,7 @@ namespace WpfApp4.Pages
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Properties.Settings.Default.choosensystem = choosenSystem;
             choosenSystem = systemscombobox.SelectedItem.ToString();
             if (choosenSystem == "REYNAERS (SL38 HI)" | choosenSystem == "COR 70 Industrial - system cieply 70mm.")
             {
@@ -275,5 +281,7 @@ namespace WpfApp4.Pages
         {
 
         }
+       
+
     }
 }

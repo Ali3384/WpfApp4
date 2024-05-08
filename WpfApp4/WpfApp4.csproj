@@ -233,11 +233,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Basket.xaml.cs">
+      <DependentUpon>Basket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrderNumberDialog.xaml.cs">
       <DependentUpon>OrderNumberDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Alumin_Panic\Page2_alu_panic.xaml.cs">
       <DependentUpon>Page2_alu_panic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\basketpage.xaml.cs">
+      <DependentUpon>basketpage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources - Копировать.Designer.cs">
       <DependentUpon>Resources.en-US.resx</DependentUpon>
@@ -259,6 +265,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Page Include="Basket.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -276,6 +286,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Alumin_Panic\Page2_alu_panic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\basketpage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -430,6 +444,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\header.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shoppingcart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

@@ -1,0 +1,54 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="WpfApp4.Basket"
+        mc:Ignorable="d"
+        Title="FUHR Poland" Height="450" Width="800" ResizeMode="CanMinimize" WindowStyle="None" MouseLeftButtonDown =" Window_MouseLeftButtonDown" Closed="onClosed" AllowsTransparency="True" Background="Transparent">
+
+
+    <Grid Background="Transparent" Width="800" Height="450">
+        <Frame  x:Name="MainFrame" Background ="DarkGray" NavigationUIVisibility="Hidden" Width="800" Height="450"/>
+        <Rectangle Name="fuhrLogo" Visibility="Visible" RadiusX="10" RadiusY="10" Margin="40,9,653,401">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Images/FUHR_Logo.jpg" Stretch="UniformToFill"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle x:Name="closebtn" HorizontalAlignment="Left" Height="23" Margin="767,10,0,0" VerticalAlignment="Top" Width="23" MouseLeftButtonDown="closeApp" ToolTip="Close" Cursor="Hand" MouseEnter="closebtn_MouseEnter" MouseLeave="closebtn_MouseLeave">
+            <Rectangle.Stroke>
+                <SolidColorBrush Color="Transparent"/>
+                <!-- Initial border color -->
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="/Images/failed.png" Stretch="Fill"/>
+            </Rectangle.Fill>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Rectangle.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                        Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+                        To="Red" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Rectangle.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                        Storyboard.TargetProperty="(Rectangle.Stroke).(SolidColorBrush.Color)"
+                        To="Transparent" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+
+
+    </Grid>
+
+
+</Window>

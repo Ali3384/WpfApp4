@@ -31,6 +31,7 @@ namespace WpfApp4.Pages
         string side;
         public string onepiece { get; set; }
         string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
+        string connectionStringbasket = Properties.Settings.Default.connection + "database=basket;";
         string choosenLock;
         string choosenOnepieceStriker;
         string choosenMainStriker;
@@ -164,6 +165,56 @@ namespace WpfApp4.Pages
             }
 
         }
+        private void addToBasket_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionStringbasket))
+                {
+                    connection.Open();
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        string itemCode = row[Properties.Resources.column_code].ToString();
+                        string itemDescription = row[Properties.Resources.column_description].ToString();
+                        int quantity = Convert.ToInt32(row[Properties.Resources.column_qty]);
+
+                        // Check if the item already exists in the basket
+                        string checkExistenceQuery = "SELECT COUNT(*) FROM basket WHERE Item = @itemCode";
+                        MySqlCommand existenceCommand = new MySqlCommand(checkExistenceQuery, connection);
+                        existenceCommand.Parameters.AddWithValue("@itemCode", itemCode);
+                        int count = Convert.ToInt32(existenceCommand.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            // If the item exists, update its quantity
+                            string updateQuery = "UPDATE basket SET Quantity = Quantity + @quantity WHERE Item = @itemCode";
+                            MySqlCommand updateCommand = new MySqlCommand(updateQuery, connection);
+                            updateCommand.Parameters.AddWithValue("@quantity", quantity);
+                            updateCommand.Parameters.AddWithValue("@itemCode", itemCode);
+                            updateCommand.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            // If the item doesn't exist, insert it into the basket
+                            string insertQuery = "INSERT INTO basket (Item, Description, Quantity) VALUES (@itemCode, @itemDescription, @quantity)";
+                            MySqlCommand insertCommand = new MySqlCommand(insertQuery, connection);
+                            insertCommand.Parameters.AddWithValue("@itemCode", itemCode);
+                            insertCommand.Parameters.AddWithValue("@itemDescription", itemDescription);
+                            insertCommand.Parameters.AddWithValue("@quantity", quantity);
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                    addtocart.IsEnabled = false;
+                }
+                MessageBox.Show("Added","Added to cart",MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error adding items to basket: " + ex.Message);
+            }
+        }
+
         private void makeFinalTable()
         {
 
@@ -201,6 +252,7 @@ namespace WpfApp4.Pages
                         insertCmd.Parameters.AddWithValue("@addcentralstriker", addcentralstriker);
                         insertCmd.ExecuteNonQuery();
                     }
+                    
                 }
                 else
                 {
@@ -571,5 +623,7 @@ namespace WpfApp4.Pages
                 }
             }
         }
+
+
     }
 }

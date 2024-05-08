@@ -142,5 +142,10 @@ namespace WpfApp4.Pages
 
             }
         }
+
+        private void backbtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new WelcomePage());
+        }
     }
 }

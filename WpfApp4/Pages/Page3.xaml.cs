@@ -40,6 +40,7 @@ namespace WpfApp4.Pages
 
 
         }
+        string connectionString = Properties.Settings.Default.connection + "database=alu_standard;";
         private void GetFirstLockShape()
         {
 
@@ -639,8 +640,7 @@ namespace WpfApp4.Pages
             choosenoption = 4;
             chooseneopener = "VRYC16ZE70S";
         }
-
-
+        
     }
 }
 

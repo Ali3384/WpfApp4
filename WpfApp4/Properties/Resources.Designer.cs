@@ -70,6 +70,15 @@ namespace WpfApp4.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Add into card.
+        /// </summary>
+        public static string addbasket {
+            get {
+                return ResourceManager.GetString("addbasket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на E-Opener.
         /// </summary>
         public static string adde_opener {
@@ -111,6 +120,15 @@ namespace WpfApp4.Properties {
         public static string and_type_of_solution {
             get {
                 return ResourceManager.GetString("and_type_of_solution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Cart .
+        /// </summary>
+        public static string basket {
+            get {
+                return ResourceManager.GetString("basket", resourceCulture);
             }
         }
         

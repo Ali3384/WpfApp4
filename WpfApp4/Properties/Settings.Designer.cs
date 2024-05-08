@@ -58,5 +58,17 @@ namespace WpfApp4.Properties {
                 this["selected_language"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string choosensystem {
+            get {
+                return ((string)(this["choosensystem"]));
+            }
+            set {
+                this["choosensystem"] = value;
+            }
+        }
     }
 }
